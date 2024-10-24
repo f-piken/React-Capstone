@@ -33,6 +33,7 @@ function Chat() {
   return (
     <div className="App">
         <Header/>
+        <div className="sela"></div>
     <div className="chat-container">
       <div className="chat-box">
         {messages.map((message, index) => (

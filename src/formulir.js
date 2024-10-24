@@ -33,6 +33,7 @@ function Formulir() {
   return (
     <div className="App">
       <Header />
+      <div className="sela"></div>
       <div className="form-container">
         <h2>Form Pendaftaran Mahasiswa Baru</h2>
         <form id="form" onSubmit={handleSubmit}>

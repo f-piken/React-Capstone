@@ -9,6 +9,9 @@ body, html {
 header {
   background-color: #B4F1F1;
   padding: 10px 20px;
+  position: fixed;
+  z-index: 1000;
+  width: 98%;
 }
 
 nav {
@@ -53,6 +56,7 @@ nav ul li a {
 }
 
 .carousel {
+  padding-top: 82px;
   position: relative;
   max-width: 100%;
   margin: auto;
@@ -208,11 +212,15 @@ nav ul li a {
   display: flex;
 }
 
+.sela{
+  padding-top: 95px;
+}
 
 .form-container {
   background-color: #FFFFFF; /* White background for form container */
   margin: 50px auto; /* Centering */
   padding: 20px;
+  margin-top: 0;
   border: 2px solid #B4F1F1; /* Green border */
   border-radius: 15px; /* Rounded corners */
   max-width: 500px; /* Maximum width */

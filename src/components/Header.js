@@ -12,7 +12,7 @@ function Header() {
           <li><a href="#">|</a></li>
           <li><a href="/Video">Video</a></li>
           <li><a href="#">|</a></li>
-          <li><a href="#">Info</a></li>
+          <li><a href="/Info">Info</a></li>
           <li><a href="#">|</a></li>
           <li><a href="/chat">Bantuan</a></li>
         </ul>

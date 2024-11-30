@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 import Header from './components/Header';
 import Footer from './components/Footer';
-// import './ChatComponent.css'; // Pastikan file CSS terpisah untuk styling
 
 function Chat() {
   const [messages, setMessages] = useState([
-    { text: 'Hai, admin..', time: '15:27', sender: 'left' },
-    { text: 'Hai, selamat sore ada yang bisa saya bantu?', time: '15:29', sender: 'right' }
+    { text: 'Hello there?', time: '11:42', sender: 'left' },
+    { text: 'Hey! How can we help you today?', time: '11:45', sender: 'right' },
   ]);
 
   const [newMessage, setNewMessage] = useState('');
@@ -15,14 +14,12 @@ function Chat() {
     if (newMessage.trim() === '') return;
 
     const currentTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-    
-    // Tambahkan pesan baru ke array messages
+
     setMessages([
       ...messages,
-      { text: newMessage, time: currentTime, sender: 'right' }
+      { text: newMessage, time: currentTime, sender: 'right' },
     ]);
-    
-    // Bersihkan input
+
     setNewMessage('');
   };
 
@@ -32,28 +29,28 @@ function Chat() {
 
   return (
     <div className="App">
-        <Header/>
-        <div className="sela"></div>
-    <div className="chat-container">
-      <div className="chat-box">
-        {messages.map((message, index) => (
-          <div key={index} className={`message ${message.sender}`}>
-            <div className="message-content">{message.text}</div>
-            <div className="message-time">{message.time}</div>
-          </div>
-        ))}
+      <Header />
+      <div className="sela"></div>
+      <div className="chat-container">
+        <div className="chat-box">
+          {messages.map((message, index) => (
+            <div key={index} className={`message ${message.sender}`}>
+              <div className="message-content">{message.text}</div>
+              <div className="message-time">{message.time}</div>
+            </div>
+          ))}
+        </div>
+        <div className="chat-input">
+          <input
+            type="text"
+            placeholder="Type a message"
+            value={newMessage}
+            onChange={handleInputChange}
+          />
+          <button className="send-btn" onClick={handleSendMessage}>Send</button>
+        </div>
       </div>
-      <div className="chat-input">
-        <input
-          type="text"
-          placeholder="Type a message"
-          value={newMessage}
-          onChange={handleInputChange}
-        />
-        <button className="send-btn" onClick={handleSendMessage}>Send</button>
-      </div>
-    </div>
-    <Footer/>
+      <Footer />
     </div>
   );
 }

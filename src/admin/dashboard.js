@@ -29,6 +29,7 @@ const Dashboard = () => {
                 }
 
                 .container {
+                    padding-top : 100px;
                     display: flex;
                     flex: 1;
                 }

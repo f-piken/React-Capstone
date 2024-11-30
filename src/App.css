@@ -1,9 +1,32 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 body, html {
+  overflow: scroll;
   margin: 0;
   padding: 0;
   font-family: "Poppins", sans-serif;
   background-color: #ECFFFB;
+}
+
+body::-webkit-scrollbar {
+  width: 8px;
+  height: 8px; /* Untuk scrollbar horizontal */
+}
+
+/* Styling track (background) scrollbar */
+body::-webkit-scrollbar-track {
+  background: #0000;
+  border-radius: 10px;
+}
+
+/* Styling thumb (bagian yang digeser) */
+body::-webkit-scrollbar-thumb {
+  background: #1E6262;
+  border-radius: 10px;
+}
+
+/* Gaya ketika scrollbar sedang di-hover */
+body::-webkit-scrollbar-thumb:hover {
+  background: #000;
 }
 
 header {
@@ -45,14 +68,6 @@ nav ul li a {
   border-radius: 10px;
   cursor: pointer;
   font-size: 20px;
-}
-
-.hero {
-  color: #000;
-}
-.hero .isi h1{
-  font-size: 40px;
-  margin: 0;
 }
 
 .carousel {
@@ -100,18 +115,31 @@ nav ul li a {
   background-color: #717171;
 }
 
+.hero {
+  color: #000;
+}
+
+.hero .isi h1 {
+  font-size: 40px;
+  margin: 0;
+  opacity: 0; /* Awalnya tidak terlihat */
+  transform: translateY(-50px); /* Geser ke atas */
+}
 
 .overlay {
   margin: 50px 100px 0;
   display: flex;
   text-align: left;
 }
-.overlay img{
+
+.overlay img {
   width: 40%;
   height: auto;
   opacity: 0.8;
+  transform: scale(0.8); /* Awalnya lebih kecil */
 }
-.isi{
+
+.isi {
   margin: 5rem 5rem 0;
 }
 
@@ -123,6 +151,22 @@ nav ul li a {
   border-radius: 15px;
   cursor: pointer;
   font-size: 25px;
+  opacity: 0; /* Awalnya tidak terlihat */
+  animation: fadeInButton 1.5s ease-out 0.5s forwards; /* Animasi dengan delay */
+}
+
+.hero .isi h1,.hero .isi p, .overlay img, .register-button {
+  opacity: 0;
+  transform: translateY(50px); /* Awalnya tersembunyi dan bergeser ke bawah */
+  transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.hero .isi h1.active,
+.hero .isi p.active,
+.overlay img.active,
+.register-button.active {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .tentang {
@@ -212,8 +256,48 @@ nav ul li a {
   display: flex;
 }
 
-.sela{
-  padding-top: 95px;
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 1.5s ease-out, transform 1.5s ease-out;
+}
+
+.fade-in.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.slide-in-left {
+  opacity: 0;
+  transform: translateX(-50px);
+  transition: opacity 1.2s ease-out, transform 1.2s ease-out;
+}
+
+.slide-in-left.active {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.slide-in-right {
+  opacity: 0;
+  transform: translateX(50px);
+  transition: opacity 1.2s ease-out, transform 1.2s ease-out;
+}
+
+.slide-in-right.active {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.scale-in {
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.scale-in.active {
+  opacity: 1;
+  transform: scale(1);
 }
 
 .form-container {
@@ -266,39 +350,71 @@ input[type="submit"]:hover {
   background-color: #66BB6A; /* Lighter green on hover */
 }
 
+/* Fade-in animation */
+@keyframes slideIn {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Apply the fade-in animation to video cards and selected video */
 .video-section {
   text-align: center;
   width: 100%;
+  animation: fadeIn 1s ease-in-out;
 }
 
 .video-grid {
+  overflow: hidden;
   display: flex;
   justify-content: space-around;
   margin-bottom: 30px;
 }
 
 .video-card {
-  width: 18rem;
-  height: 30rem;
-  background-color: #d3d3d3;
+  overflow: hidden;
+  width: 20rem;
+  height: 49.7rem;
   border-radius: 8px;
-  padding: 15px;
   text-align: center;
+  opacity: 0;
+  animation: slideIn 1s ease-out forwards;
+}
+
+.video-card:nth-child(1) {
+  animation-delay: 0.3s;
+}
+
+.video-card:nth-child(2) {
+  animation-delay: 0.5s;
+}
+
+.video-card:nth-child(3) {
+  animation-delay: 0.7s;
+}
+
+.video-card:nth-child(4) {
+  animation-delay: 0.9s;
 }
 
 .large-video-card {
-  width: 90%;
   height: 20rem;
   margin: 0 5% 2rem 5%;
-  background-color: #d3d3d3;
   border-radius: 8px;
   padding: 15px;
   padding-bottom: 40px;
   text-align: center;
+  opacity: 0;
+  animation: fadeIn 1s ease-in-out forwards;
+  animation-delay: 1s; /* Delay animation for the selected video */
 }
 
 .video-thumbnail {
-  background-color: #c0c0c0;
   height: 95%;
   display: flex;
   justify-content: center;
@@ -307,18 +423,14 @@ input[type="submit"]:hover {
   border-radius: 4px;
 }
 
-.play-button {
-  background: none;
-  border: none;
-  font-size: 2rem;
-  cursor: pointer;
-}
-
 .description {
   font-size: 0.9rem;
   color: #666;
 }
 
+.sela {
+  padding-top: 95px;
+}
 
 .chat-container {
   flex: 1;
@@ -330,33 +442,47 @@ input[type="submit"]:hover {
 
 .chat-box {
   flex: 1;
+  max-height: 500px; /* Atur tinggi maksimal */
   background-color: #e0f7fa;
   padding: 20px;
-  padding-bottom: 500px;
   border-radius: 10px;
-  overflow-y: auto;
+  overflow-y: auto; /* Tambahkan scroll */
 }
 
 .message {
   margin-bottom: 15px;
   display: flex;
+  word-wrap: break-word; 
   flex-direction: column;
+  max-width: 30%; /* Batasi lebar pesan */
+  animation: fadeIn 0.3s ease-in-out;
 }
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 
 .message.left {
   align-self: flex-start;
   background-color: #b2ebf2;
   padding: 10px;
-  border-radius: 15px;
-  max-width: 60%;
+  border-radius: 15px 15px 15px 0;
 }
 
 .message.right {
   align-self: flex-end;
+  margin-left: 68%;
   background-color: #4dd0e1;
   padding: 10px;
-  border-radius: 15px;
-  max-width: 60%;
+  border-radius: 15px 15px 0 15px; /* Sesuaikan sudut */
 }
 
 .message-content {
@@ -395,7 +521,6 @@ input[type="submit"]:hover {
   border-radius: 5px;
   cursor: pointer;
 }
-
 
 footer {
   background-color: #1E6262;

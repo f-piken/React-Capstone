@@ -1,12 +1,14 @@
 // src/components/AdminPanel.js
-import React from 'react';
+import React, { useEffect,useState } from 'react';
 
 const Jadwal = () => {
-    const schedules = [
-        { id: 'TI1', mataKuliah: 'Pemrograman', ruangan: 'R2.12', waktu: 'Rabu, 12:00 - 13:00' },
-        { id: 'TI2', mataKuliah: 'Database', ruangan: 'R3.1', waktu: 'Kamis, 07:30 - 09:30' },
-        { id: 'TI3', mataKuliah: 'Multimedia', ruangan: 'R7.11', waktu: 'Senin, 14:15 - 16:00' },
-    ];
+    const [schedules, setSchedules] = useState([]);
+
+    useEffect(() => {
+        fetch('http://localhost:3001/schedules')
+            .then((response) => response.json())
+            .then((data) => setSchedules(data));
+    }, []);
 
     return (
         <div>
@@ -35,6 +37,7 @@ const Jadwal = () => {
                 }
                                 
                 .container {
+                    padding-top: 100px;
                     display: flex;
                     flex: 1;
                 }
@@ -150,19 +153,25 @@ const Jadwal = () => {
                     <table className="user-table">
                         <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>Mata Kuliah</th>
-                                <th>Ruangan</th>
-                                <th>Waktu</th>
+                                <th>NIM</th>
+                                <th>Nama</th>
+                                <th>Alamat</th>
+                                <th>Tempat, Tgl Lahir</th>
+                                <th>No. Tlp</th>
+                                <th>Email</th>
+                                <th>Status Pembayaran</th>
                             </tr>
                         </thead>
                         <tbody>
                             {schedules.map((schedule) => (
                                 <tr key={schedule.id}>
                                     <td>{schedule.id}</td>
-                                    <td>{schedule.mataKuliah}</td>
-                                    <td>{schedule.ruangan}</td>
-                                    <td>{schedule.waktu}</td>
+                                    <td>{schedule.nama}</td>
+                                    <td>{schedule.alamat}</td>
+                                    <td>{schedule.ttl}</td>
+                                    <td>{schedule.noTlp}</td>
+                                    <td>{schedule.email}</td>
+                                    <td>{schedule.statusPembayaran}</td>
                                 </tr>
                             ))}
                         </tbody>

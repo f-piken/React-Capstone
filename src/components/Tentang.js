@@ -1,7 +1,33 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 function Tentang() {
+  const [organisasiData, setOrganisasiData] = useState([]);
+  const [prestasiData, setPrestasiData] = useState([]);
+  const [programStudiData, setProgramStudiData] = useState([]);
+  const [artikelData, setArtikelData] = useState([]);
+
   useEffect(() => {
+    axios
+      .get("http://localhost:3002/organisasi")
+      .then((response) => setOrganisasiData(response.data))
+      .catch((error) => console.error("Error fetching organisasi data:", error));
+
+    axios
+      .get("http://localhost:3002/prestasi")
+      .then((response) => setPrestasiData(response.data))
+      .catch((error) => console.error("Error fetching prestasi data:", error));
+
+    axios
+      .get("http://localhost:3002/programstudi")
+      .then((response) => setProgramStudiData(response.data))
+      .catch((error) => console.error("Error fetching program studi data:", error));
+
+    axios
+      .get("http://localhost:3002/artikel")
+      .then((response) => setArtikelData(response.data))
+      .catch((error) => console.error("Error fetching artikel data:", error));
+
     const handleScroll = () => {
       const elements = document.querySelectorAll(".fade-in, .slide-in-left, .slide-in-right, .scale-in");
       elements.forEach((el) => {
@@ -16,37 +42,53 @@ function Tentang() {
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, []); 
+
   return (
     <section className="tentang fade-in">
-      <h2 className='afade-in'>TENTANG</h2>
+      <h2 className="afade-in">TENTANG</h2>
       <div className="content">
         <div className="left slide-in-left">
           <div className="buka fade-in">
             <img src="/images/v2_59.png" alt="Logo Kampus" />
             <div>
               <h3>Program Studi</h3>
-              <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+              <p>Program Studi yang tersedia di kampus kami : </p>
+              <ul>
+                {programStudiData.map((item) => (
+                  <li key={item.id}>{item.content}</li>
+                ))}
+              </ul>
             </div>
           </div>
           <h3>Organisasi</h3>
-          <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+          <p>Organisasi yang ada di kampus kami : </p>
+          <ul>
+            {organisasiData.map((item) => (
+              <li key={item.id}>{item.content}</li>
+            ))}
+          </ul>
           <h3>Prestasi</h3>
-          <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+          <p>Prestasi yang kami raih antara lain : </p>
+          <ul>
+            {prestasiData.map((item) => (
+              <li key={item.id}>{item.content}</li>
+            ))}
+          </ul>
         </div>
         <div className="right slide-in-right">
-          <div className="card1 scale-in">
-            <h4>Pemenang Lomba</h4>
-            <p>Kami bangga dengan mahasiswa yang memenangkan berbagai lomba...</p>
-          </div>
-          <div className="card2 scale-in">
-            <h4>Penghargaan</h4>
-            <p>Penghargaan yang diterima oleh mahasiswa atas prestasi akademik dan non-akademik...</p>
-          </div>
-          <div className="card3 scale-in">
-            <h4>Seminar</h4>
-            <p>Seminar-seminar yang diadakan untuk meningkatkan pengetahuan dan jaringan...</p>
-          </div>
+          {artikelData.map((artikel, index) => (
+            <div
+              key={artikel.id}
+              className={`card${index + 1} scale-in`}
+              style={{
+                backgroundImage: `linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0)), url(${artikel.images})`,
+              }}
+            >
+              <h4>{artikel.title}</h4>
+              <p>{artikel.content}</p>
+            </div>
+          ))}
         </div>
       </div>
     </section>

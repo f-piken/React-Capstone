@@ -1,0 +1,35 @@
+{
+    "slider": [
+        { "id": "1", "source": "../images/v1_4.png"},
+        { "id": "2", "source": "../images/banner2.jpeg"},
+        { "id": "3", "source": "../images/banner3.jpeg"}
+    ],
+    "artikel": [
+      { "id": "1", "title": "Pemenang Lomba", "kategori": "Lomba", "images": "../images/v2_32.png" , "content": "Kami bangga dengan mahasiswa yang memenangkan berbagai lomba..." },
+      { "id": "2", "title": "Penghargaan", "kategori": "Penghargaan", "images": "../images/v2_33.png", "content":"Penghargaan yang diterima oleh mahasiswa atas prestasi akademik dan non-akademik..." },
+      { "id": "3", "title": "Seminar", "kategori": "Seminar", "images": "../images/v2_31.png", "content":"Seminar-seminar yang diadakan untuk meningkatkan pengetahuan dan jaringan..." }
+    ],
+    "programstudi": [
+      { "id": "1", "content": "Teknik Informatika S1" },
+      { "id": "2", "content": "Teknik Sipil S1"},
+      { "id": "3", "content": "Teknik Mesin S1"},
+      { "id": "4", "content": "Teknik Elektro S1"},
+      { "id": "5", "content": "Teknik KImia S1"}
+    ],
+    "organisasi": [
+        { "id": "1", "content": "Organisasi Pertama" },
+        { "id": "2", "content": "Organisasi Kedua"},
+        { "id": "3", "content": "Organiasi Ketiga"}
+    ],
+    "prestasi": [
+     { "id": "1", "content": "Juara 1 Robotika Nasional"},
+     { "id": "2", "content": "Juara 3 Sipil Nasional"},
+     { "id": "3", "content": "Juara 3 Kimia Nasional"}
+    ],
+    "video": [
+        { "id": "1", "judul": "Video 1", "videoUrl":"https://www.tiktok.com/embed/7438065662481763602", "description": "Deskripsi Video Pertama" },
+        { "id": "2", "judul": "Video 2", "videoUrl":"https://www.tiktok.com/embed/7438065662481763602", "description": "Deskripsi Video Keuda" },
+        { "id": "3", "judul": "Video 3", "videoUrl":"https://www.tiktok.com/embed/7312472190169926918", "description": "Deskripsi Video Ketiga" },
+        { "id": "4", "judul": "Video 4", "videoUrl":"https://www.tiktok.com/embed/7443032536378395922", "description": "Deskripsi Video Keempat" }
+    ]
+  }

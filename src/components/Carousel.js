@@ -57,7 +57,7 @@ function Carousel() {
           <span
             key={index}
             className={`indicator w-2 h-2 sm:w-2.5 sm:h-2.5 bg-white rounded-full cursor-pointer ${
-              activeIndex === index ? 'bg-teal-500' : 'bg-white'
+              activeIndex === index ? 'bg-teal-600' : 'bg-white'
             }`}
             onClick={() => goToSlide(index)}
           ></span>

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import Header from './components/Header';
-import Carousel from './components/Carousel';
 import Footer from './components/Footer';
 
 function Formulir() {
@@ -54,15 +53,15 @@ function Formulir() {
     <div className="App">
       <Header />
       <div className="sela"></div>
-      <div className="form-container">
-        <h2>Form Pendaftaran Mahasiswa Baru</h2>
-        {message && <p>{message}</p>}
+      <div className="max-w-xl mx-auto bg-white p-6 rounded-lg shadow-lg border-2 border-teal-300">
+        <h2 className="text-center text-2xl text-teal-800 font-semibold mb-6">Form Pendaftaran Mahasiswa Baru</h2>
+        {message && <p className="text-center text-teal-700 mb-4">{message}</p>}
         <form id="form" onSubmit={handleSubmit}>
-          <div className="mb-3">
-            <label htmlFor="nama" className="form-label">Nama Lengkap</label>
+          <div className="mb-4">
+            <label htmlFor="nama" className="block text-teal-800 font-medium mb-2">Nama Lengkap</label>
             <input
               type="text"
-              className="form-control"
+              className="w-full p-3 border border-teal-300 rounded-lg focus:border-teal-500 focus:ring focus:ring-teal-300"
               id="nama"
               value={formData.nama}
               onChange={handleChange}
@@ -70,11 +69,11 @@ function Formulir() {
             />
           </div>
 
-          <div className="mb-3">
-            <label htmlFor="nilai" className="form-label">Nilai</label>
+          <div className="mb-4">
+            <label htmlFor="nilai" className="block text-teal-800 font-medium mb-2">Nilai</label>
             <input
               type="text"
-              className="form-control"
+              className="w-full p-3 border border-teal-300 rounded-lg focus:border-teal-500 focus:ring focus:ring-teal-300"
               id="nilai"
               value={formData.nilai}
               onChange={handleChange}
@@ -82,11 +81,11 @@ function Formulir() {
             />
           </div>
 
-          <div className="mb-3">
-            <label htmlFor="alamat" className="form-label">Alamat</label>
+          <div className="mb-4">
+            <label htmlFor="alamat" className="block text-teal-800 font-medium mb-2">Alamat</label>
             <input
               type="text"
-              className="form-control"
+              className="w-full p-3 border border-teal-300 rounded-lg focus:border-teal-500 focus:ring focus:ring-teal-300"
               id="alamat"
               value={formData.alamat}
               onChange={handleChange}
@@ -94,11 +93,11 @@ function Formulir() {
             />
           </div>
 
-          <div className="mb-3">
-            <label htmlFor="lahir" className="form-label">Tempat, Tanggal Lahir</label>
+          <div className="mb-4">
+            <label htmlFor="lahir" className="block text-teal-800 font-medium mb-2">Tempat, Tanggal Lahir</label>
             <input
               type="text"
-              className="form-control"
+              className="w-full p-3 border border-teal-300 rounded-lg focus:border-teal-500 focus:ring focus:ring-teal-300"
               id="lahir"
               value={formData.lahir}
               onChange={handleChange}
@@ -106,11 +105,11 @@ function Formulir() {
             />
           </div>
 
-          <div className="mb-3">
-            <label htmlFor="email" className="form-label">Email Address</label>
+          <div className="mb-4">
+            <label htmlFor="email" className="block text-teal-800 font-medium mb-2">Email Address</label>
             <input
               type="email"
-              className="form-control"
+              className="w-full p-3 border border-teal-300 rounded-lg focus:border-teal-500 focus:ring focus:ring-teal-300"
               id="email"
               value={formData.email}
               onChange={handleChange}
@@ -118,11 +117,11 @@ function Formulir() {
             />
           </div>
 
-          <div className="mb-3">
-            <label htmlFor="nisn" className="form-label">NISN</label>
+          <div className="mb-4">
+            <label htmlFor="nisn" className="block text-teal-800 font-medium mb-2">NISN</label>
             <input
               type="text"
-              className="form-control"
+              className="w-full p-3 border border-teal-300 rounded-lg focus:border-teal-500 focus:ring focus:ring-teal-300"
               id="nisn"
               value={formData.nisn}
               onChange={handleChange}
@@ -130,11 +129,11 @@ function Formulir() {
             />
           </div>
 
-          <div className="mb-3">
-            <label htmlFor="no" className="form-label">No HP</label>
+          <div className="mb-4">
+            <label htmlFor="no" className="block text-teal-800 font-medium mb-2">No HP</label>
             <input
               type="text"
-              className="form-control"
+              className="w-full p-3 border border-teal-300 rounded-lg focus:border-teal-500 focus:ring focus:ring-teal-300"
               id="no"
               value={formData.no}
               onChange={handleChange}
@@ -142,8 +141,9 @@ function Formulir() {
             />
           </div>
 
-
-          <input type="submit" value="Kirim" className="btn btn-primary" />
+          <div className="text-center mt-6">
+            <input type="submit" value="Kirim" className="w-full py-3 bg-teal-500 text-white rounded-lg cursor-pointer hover:bg-teal-600 focus:outline-none" />
+          </div>
         </form>
       </div>
       <Footer />

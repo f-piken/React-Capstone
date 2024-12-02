@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios'; 
+import axios from 'axios';
 import Header from './components/Header';
 import Carousel from './components/Carousel';
 import Footer from './components/Footer';
@@ -10,7 +10,7 @@ function Video() {
     description: 'Deskripsi video utama yang Dipilih',
     videoUrl: '',
   });
-  
+
   const [videos, setVideos] = useState([]);
 
   useEffect(() => {
@@ -36,39 +36,45 @@ function Video() {
     <div className="App">
       <Header />
       <Carousel />
-      <section className="video-section">
-        <h1>VIDEO</h1>
-        <div className="video-grid">
-          {videos.map((video) => (
-            <div className="video-card" key={video.id} onClick={() => handleVideoClick(video)}>
-              <div className="video-thumbnail">
+      <section className="text-center w-full animate-fadeIn">
+        <h1 className="text-6xl mt-10 font-bold mb-8">TIKTOK</h1>
+        <div className="video-grid flex flex-wrap justify-around mb-8">
+          {videos.map((video, index) => (
+            <div
+              className={`video-card overflow-hidden w-80 h-[47rem] rounded-lg text-center opacity-0 animate-slideIn animation-delay-${index}`}
+              key={video.id}
+              onClick={() => handleVideoClick(video)}
+            >
+              <div className="video-thumbnail h-[48rem] flex justify-center items-center mb-2 rounded-md overflow-hidden">
                 <iframe
                   src={video.videoUrl}
                   width="100%"
                   height="100%"
                   frameBorder="0"
                   title={video.judul}
+                  className="rounded-md"
                 ></iframe>
               </div>
-              <p>{video.judul}</p>
+              <p className="text-sm font-medium">{video.judul}</p>
             </div>
           ))}
         </div>
-
-        <div className="large-video-card">
-          <div className="video-thumbnail">
+        <h1 className="text-6xl mt-10 font-bold mb-8">Youtube</h1>
+        <div className="large-video-card h-[20rem] mx-[5%] mb-8 rounded-lg p-4 text-center opacity-0 animate-fadeIn">
+          <div className="video-thumbnail h-full flex justify-center items-center mb-4 rounded-md overflow-hidden">
             <iframe
-              width="560"
-              height="315"
+              width="100%"
+              height="100%"
               src={selectedVideo.videoUrl}
               title={selectedVideo.title}
               frameBorder="0"
               allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
+              className="rounded-md"
             ></iframe>
           </div>
-          <p>{selectedVideo.title}</p>
-          <p className="description">{selectedVideo.description}</p>
+          <p className="text-lg font-semibold">{selectedVideo.title}</p>
+          <p className="description text-sm text-gray-600">{selectedVideo.description}</p>
         </div>
       </section>
       <Footer />

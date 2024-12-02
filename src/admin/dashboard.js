@@ -1,171 +1,161 @@
-// src/components/AdminPanel.js
-import React from 'react';
+import React, { useState } from 'react';
 
 const Dashboard = () => {
-    return (
-        <div>
-            <style>
-                {`
-                body {
-                    font-family: 'Arial', sans-serif;
-                    margin: 0;
-                    padding: 0;
-                    background-color: #B4F1F1;
-                }
+  const [step, setStep] = useState(1);
+  const currentDate = new Date().toLocaleDateString();
 
-                .admin-panel {
-                    display: flex;
-                    flex-direction: column;
-                    height: 100vh;
-                }
+  // Fungsi untuk pindah ke langkah berikutnya
+  const nextStep = () => {
+    if (step < 4) {
+      setStep(step + 1);
+    }
+  };
 
-                .header {
-                    background-color: #B4F1F1;
-                    color: #1E6262;
-                    padding: 15px;
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                }
+  const days = ["Hari Ke-1", "Hari Ke-2", "Hari Ke-3", "Hari Ke-4"];
 
-                .container {
-                    padding-top : 100px;
-                    display: flex;
-                    flex: 1;
-                }
+  return (
+    <div className="flex flex-col h-screen font-sans bg-teal-100">
+      {/* Header */}
+      <header className="bg-teal-200 text-teal-800 px-6 py-4 flex justify-between items-center shadow">
+        <h1 className="text-xl font-bold">Admin Panel</h1>
+        <div className="flex items-center">
+          <span className="material-icons text-3xl mr-2">account_circle</span>
+          <span>Munet</span>
+        </div>
+      </header>
 
-                .sidebar {
-                    width: 200px;
-                    background-color: #1E6262;
-                    padding: 15px;
-                }
+      {/* Container */}
+      <div className="flex flex-1 overflow-hidden">
+        {/* Sidebar */}
+        <aside className="w-48 bg-teal-700 text-white flex-shrink-0">
+          <nav>
+            <ul className="space-y-2 p-4">
+              <li>
+                <a
+                  href="/Dashboard"
+                  className="block px-4 py-2 rounded hover:bg-teal-600"
+                >
+                  Dashboard
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/Pendaftar"
+                  className="block px-4 py-2 rounded hover:bg-teal-600"
+                >
+                  Pendaftar
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/Jadwal"
+                  className="block px-4 py-2 rounded hover:bg-teal-600"
+                >
+                  Jadwal
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  className="block px-4 py-2 rounded hover:bg-teal-600"
+                >
+                  Keuangan
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  className="block px-4 py-2 rounded hover:bg-teal-600"
+                >
+                  Presensi
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/"
+                  className="block px-4 py-2 rounded hover:bg-teal-600"
+                >
+                  Logout
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </aside>
 
-                .sidebar nav ul {
-                    list-style-type: none;
-                    display : block;
-                    padding: 0;
-                }
+        {/* Main Content */}
+        <main className="flex-1 bg-teal-50 p-6 overflow-y-auto">
+          <h2 className="text-2xl font-bold mb-4">Dashboard</h2>
+          <p className="text-gray-700 mb-6">
+            Welcome to the admin panel. Here you can manage users, view reports,
+            and adjust settings.
+          </p>
 
-                .sidebar nav ul li {
-                    margin: 10px 0;
-                }
+          {/* Profil Card */}
+          <div className="bg-teal-200 p-6 rounded-lg shadow flex flex-col items-center text-teal-800 mb-6">
+            <div className="w-48 h-48 bg-teal-800 rounded-full mb-4"></div>
+            <h3 className="font-bold">NIM:</h3>
+            <p className="mb-2">2218140</p>
+            <h3 className="font-bold">Nama:</h3>
+            <p className="mb-2">Satriya Adi Yoga</p>
+            <h3 className="font-bold">Tempat, Tanggal Lahir:</h3>
+            <p className="mb-2">Malang, 10 November 2002</p>
+            <h3 className="font-bold">Alamat:</h3>
+            <p className="mb-2">Malang</p>
+            <h3 className="font-bold">No Tlp:</h3>
+            <p className="mb-2">0393817665416</p>
+            <h3 className="font-bold">Email:</h3>
+            <p className="mb-2">munet@gmail.com</p>
+          </div>
 
-                .sidebar nav ul li a {
-                    color: white;
-                    text-decoration: none;
-                    padding: 10px;
-                    display: block;
-                }
+          {/* Step Progress */}
+          <div className="bg-white p-6 rounded-lg shadow mb-6">
+            <h3 className="text-xl font-semibold mb-4">Progres Proses</h3>
 
-                .sidebar nav ul li a:hover {
-                    background-color: #409494;
-                }
-
-                .main-content {
-                    flex: 1;
-                    padding: 20px;
-                    background-color: #ECFFFB;
-                }
-                .card {
-                    flex: 1;
-                    background-color: #B4F1F1;
-                    padding: 20px;
-                    border-radius: 5px;
-                    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-                }
-                .card .foto{
-                    background-color: #1E6262;
-                    width: 200px;
-                    height: 200px;
-                    border-radius: 50%;
-                }
-
-                .user-table {
-                    width: 100%;
-                    border-collapse: collapse;
-                    margin-top: 20px;
-                }
-
-                .user-table th, .user-table td {
-                    border: 1px solid #ddd;
-                    padding: 8px;
-                    text-align: left;
-                }
-
-                .user-table th {
-                    background-color: #1E6262;
-                    color: white;
-                }
-
-                .user-table tr:nth-child(even) {
-                    background-color: #f2f2f2;
-                }
-
-                .user-table tr:hover {
-                    background-color: #ddd;
-                }
-
-                .user-table button {
-                    background-color: #1E6262;
-                    color: white;
-                    border: none;
-                    padding: 5px 10px;
-                    border-radius: 4px;
-                    cursor: pointer;
-                    margin-right: 5px;
-                }
-
-                .user-table button:hover {
-                    background-color: #B4F1F1;
-                }
-                `}
-            </style>
-        <div className="admin-panel">
-            <header className="header">
-                <h1>Admin Panel</h1>
-                <div className="user-info">
-                    <span className="material-icons">account_circle</span>
-                    <span>Munet</span>
+            {/* Step Indicator */}
+            <div className="flex items-center justify-between mb-6">
+              {["Step 1", "Step 2", "Step 3", "Step 4"].map((stepName, index) => (
+                <div key={index} className="flex flex-col items-center">
+                  {/* Circle */}
+                  <div
+                    className={`w-16 h-16 rounded-full border-4 
+                      ${step > index ? 'bg-teal-500 border-teal-500' : 'bg-white border-teal-300'} 
+                      flex items-center justify-center mb-2 transition-all`}
+                  >
+                    {step > index ? (
+                      <span className="material-icons text-white text-lg">check_circle</span>
+                    ) : null}
+                  </div>
+                  {/* Day Label */}
+                  <span className="text-sm text-teal-700">{days[index]}</span>
+                  {/* Connecting Line */}
+                  {index < 3 && (
+                    <div className="w-16 h-1 bg-teal-500"></div> // Garis penghubung lebih tebal
+                  )}
                 </div>
-            </header>
-            <div className="container">
-                <aside className="sidebar">
-                    <nav>
-                        <ul>
-                            <li><a href="/Dashboard">Dashboard</a></li>
-                            <li><a href="/Pendaftar">Pendaftar</a></li>
-                            <li><a href="/Jadwal">Jadwal</a></li>
-                            <li><a href="#">Keuangan</a></li>
-                            <li><a href="#">Presensi</a></li>
-                            <li><a href="/">Logout</a></li>
-                        </ul>
-                    </nav>
-                </aside>
-                <main className="main-content">
-                    <h2>Dashboard</h2>
-                    <p>Welcome to the admin panel. Here you can manage users, view reports, and adjust settings.</p>
-                    <div className="cards">
-                        <div className="card">
-                            <div className="foto"></div>
-                            <h3>NIM  : </h3>
-                            <p>2218140</p>
-                            <h3>Nama  : </h3>
-                            <p>Satriya Adi Yoga</p>
-                            <h3>Tempat, Tanggal Lahir  : </h3>
-                            <p>Malang, 10 November 2002</p>
-                            <h3>Alamat  : </h3>
-                            <p>Malang</p>
-                            <h3>No Tlp  : </h3>
-                            <p>0393817665416</p>
-                            <h3>Email  : </h3>
-                            <p>munet@gmail.com</p>
-                        </div>
-                    </div>
-                </main>
+              ))}
             </div>
-        </div>
-        </div>
-    );
+
+            {/* Progress Description */}
+            <div className="text-sm text-teal-700 mb-6">
+              <p>{`Step ${step}: This is step description. You are currently at step ${step}.`}</p>
+              <p className="mt-2">Tanggal: {currentDate}</p>
+            </div>
+
+            {/* Next Step Button */}
+            <div className="mt-4">
+              <button
+                className="px-4 py-2 bg-teal-500 text-white rounded hover:bg-teal-600"
+                onClick={nextStep}
+                disabled={step === 4}
+              >
+                {step === 4 ? 'Proses Selesai' : 'Lanjutkan ke Step Selanjutnya'}
+              </button>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  );
 };
 
 export default Dashboard;

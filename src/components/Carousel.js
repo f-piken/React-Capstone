@@ -16,7 +16,9 @@ function Carousel() {
   };
 
   const nextSlide = () => {
-    goToSlide(activeIndex + 1);
+    setActiveIndex((prevIndex) => {
+      return prevIndex + 1 >= sliderData.length ? 0 : prevIndex + 1;
+    });
   };
 
   useEffect(() => {
@@ -29,33 +31,31 @@ function Carousel() {
         console.error("Error fetching slider data:", error);
       });
 
-    const interval = setInterval(() => {
-      nextSlide();
-    }, 5000);
+    const interval = setInterval(nextSlide, 5000); // Set interval to go to next slide every 5 seconds
 
-    return () => clearInterval(interval);
-  }, [activeIndex]);
+    return () => clearInterval(interval); // Clean up the interval on component unmount
+  }, [sliderData.length]); // Empty array dependency to trigger once on data load
 
   return (
-    <div className="carousel">
+    <div className="carousel relative max-w-full overflow-hidden pt-20 mx-auto">
       <div 
-        className="carousel-inner" 
-        style={{ transform: `translateX(-${activeIndex * 100}%)`, transition: 'transform 0.5s ease-in-out' }}
+        className="carousel-inner flex transition-transform duration-500 ease-in-out"
+        style={{ transform: `translateX(-${activeIndex * 100}%)` }}
       >
         {sliderData.map((slide, index) => (
           <div 
             key={slide.id} 
-            className={`carousel-item ${activeIndex === index ? 'active' : ''}`}
+            className={`carousel-item w-full flex-none`}
           >
-            <img src={slide.source} alt={`Slide ${index + 1}`} />
+            <img src={slide.source} alt={`Slide ${index + 1}`} className="w-full h-72 object-cover" />
           </div>
         ))}
       </div>
-      <div className="carousel-indicators">
+      <div className="carousel-indicators absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
         {sliderData.map((_, index) => (
           <span 
             key={index} 
-            className={`indicator ${activeIndex === index ? 'active' : ''}`} 
+            className={`indicator w-2.5 h-2.5 bg-white rounded-full cursor-pointer ${activeIndex === index ? 'bg-teal-500' : 'bg-white'}`}
             onClick={() => goToSlide(index)}
           ></span>
         ))}

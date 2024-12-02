@@ -1,35 +1,169 @@
 {
-    "slider": [
-        { "id": "1", "source": "../images/v1_4.png"},
-        { "id": "2", "source": "../images/banner2.jpeg"},
-        { "id": "3", "source": "../images/banner3.jpeg"}
-    ],
-    "artikel": [
-      { "id": "1", "title": "Pemenang Lomba", "kategori": "Lomba", "images": "../images/v2_32.png" , "content": "Kami bangga dengan mahasiswa yang memenangkan berbagai lomba..." },
-      { "id": "2", "title": "Penghargaan", "kategori": "Penghargaan", "images": "../images/v2_33.png", "content":"Penghargaan yang diterima oleh mahasiswa atas prestasi akademik dan non-akademik..." },
-      { "id": "3", "title": "Seminar", "kategori": "Seminar", "images": "../images/v2_31.png", "content":"Seminar-seminar yang diadakan untuk meningkatkan pengetahuan dan jaringan..." }
-    ],
-    "programstudi": [
-      { "id": "1", "content": "Teknik Informatika S1" },
-      { "id": "2", "content": "Teknik Sipil S1"},
-      { "id": "3", "content": "Teknik Mesin S1"},
-      { "id": "4", "content": "Teknik Elektro S1"},
-      { "id": "5", "content": "Teknik KImia S1"}
-    ],
-    "organisasi": [
-        { "id": "1", "content": "Organisasi Pertama" },
-        { "id": "2", "content": "Organisasi Kedua"},
-        { "id": "3", "content": "Organiasi Ketiga"}
-    ],
-    "prestasi": [
-     { "id": "1", "content": "Juara 1 Robotika Nasional"},
-     { "id": "2", "content": "Juara 3 Sipil Nasional"},
-     { "id": "3", "content": "Juara 3 Kimia Nasional"}
-    ],
-    "video": [
-        { "id": "1", "judul": "Video 1", "videoUrl":"https://www.tiktok.com/embed/7438065662481763602", "description": "Deskripsi Video Pertama" },
-        { "id": "2", "judul": "Video 2", "videoUrl":"https://www.tiktok.com/embed/7438065662481763602", "description": "Deskripsi Video Keuda" },
-        { "id": "3", "judul": "Video 3", "videoUrl":"https://www.tiktok.com/embed/7312472190169926918", "description": "Deskripsi Video Ketiga" },
-        { "id": "4", "judul": "Video 4", "videoUrl":"https://www.tiktok.com/embed/7443032536378395922", "description": "Deskripsi Video Keempat" }
-    ]
-  }
+  "slider": [
+    {
+      "id": "1",
+      "source": "../images/v1_4.png"
+    },
+    {
+      "id": "2",
+      "source": "../images/banner2.jpeg"
+    },
+    {
+      "id": "3",
+      "source": "../images/banner3.jpeg"
+    }
+  ],
+  "artikel": [
+    {
+      "id": "1",
+      "title": "Pemenang Lomba",
+      "kategori": "Lomba",
+      "images": "../images/v2_32.png",
+      "content": "Kami bangga dengan mahasiswa yang memenangkan berbagai lomba..."
+    },
+    {
+      "id": "2",
+      "title": "Penghargaan",
+      "kategori": "Penghargaan",
+      "images": "../images/v2_33.png",
+      "content": "Penghargaan yang diterima oleh mahasiswa atas prestasi akademik dan non-akademik..."
+    },
+    {
+      "id": "3",
+      "title": "Seminar",
+      "kategori": "Seminar",
+      "images": "../images/v2_31.png",
+      "content": "Seminar-seminar yang diadakan untuk meningkatkan pengetahuan dan jaringan..."
+    }
+  ],
+  "programstudi": [
+    {
+      "id": "1",
+      "content": "Teknik Informatika S1"
+    },
+    {
+      "id": "2",
+      "content": "Teknik Sipil S1"
+    },
+    {
+      "id": "3",
+      "content": "Teknik Mesin S1"
+    },
+    {
+      "id": "4",
+      "content": "Teknik Elektro S1"
+    },
+    {
+      "id": "5",
+      "content": "Teknik KImia S1"
+    }
+  ],
+  "organisasi": [
+    {
+      "id": "1",
+      "content": "Organisasi Pertama"
+    },
+    {
+      "id": "2",
+      "content": "Organisasi Kedua"
+    },
+    {
+      "id": "3",
+      "content": "Organiasi Ketiga"
+    }
+  ],
+  "prestasi": [
+    {
+      "id": "1",
+      "content": "Juara 1 Robotika Nasional"
+    },
+    {
+      "id": "2",
+      "content": "Juara 3 Sipil Nasional"
+    },
+    {
+      "id": "3",
+      "content": "Juara 3 Kimia Nasional"
+    }
+  ],
+  "video": [
+    {
+      "id": "1",
+      "judul": "Video 1",
+      "videoUrl": "https://www.tiktok.com/embed/7438065662481763602",
+      "description": "Deskripsi Video Pertama"
+    },
+    {
+      "id": "2",
+      "judul": "Video 2",
+      "videoUrl": "https://www.tiktok.com/embed/7438065662481763602",
+      "description": "Deskripsi Video Keuda"
+    },
+    {
+      "id": "3",
+      "judul": "Video 3",
+      "videoUrl": "https://www.tiktok.com/embed/7312472190169926918",
+      "description": "Deskripsi Video Ketiga"
+    },
+    {
+      "id": "4",
+      "judul": "Video 4",
+      "videoUrl": "https://www.tiktok.com/embed/7443032536378395922",
+      "description": "Deskripsi Video Keempat"
+    }
+  ],
+  "pendaftaran": [
+    {
+      "id": "1",
+      "nama": "Fiky Prayoga",
+      "nilai": "95",
+      "alamat": "bangkalan",
+      "lahir": "bangkalan, 21 agustus 1998",
+      "email": "fikypray@gmail.com",
+      "nisn": "123456789",
+      "no": "0895709550090"
+    },
+    {
+      "id": "2",
+      "nama": "Satria Adiyoga Dwi Saputra",
+      "nilai": "85",
+      "alamat": "cemorokandang",
+      "lahir": "cemorokandang malang, 11 april 1977",
+      "email": "adiyogasatria547@gmail.com",
+      "nisn": "123456789",
+      "no": "089601667431"
+    },
+    {
+      "id": "3",
+      "nama": "Karimul Humam",
+      "nilai": "90",
+      "alamat": "tulungagung",
+      "lahir": "cipto mulyo, 22 juli 1945",
+      "email": "kamrimulhumam123@gmail.com",
+      "nisn": "123456789",
+      "no": "087762347197"
+    },
+    {
+      "id": "4",
+      "nama": "Casimiro",
+      "nilai": "87",
+      "alamat": "bangkalan",
+      "lahir": "bangkalan, 21 agustus 1998",
+      "email": "@gmail.com",
+      "nisn": "123456789",
+      "no": "087757932316"
+    },
+    {
+      "id": "030f",
+      "nama": "Ararek",
+      "nilai": "87",
+      "alamat": "karangloh",
+      "lahir": "malang, 23 juni 2003",
+      "email": "araara@gmail.com",
+      "nisn": "123456789",
+      "no": "089601667431",
+      "jur1": "informatika",
+      "jur2": "mesin"
+    }
+  ]
+}

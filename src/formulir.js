@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import Header from './components/Header';
 import Carousel from './components/Carousel';
 import Footer from './components/Footer';
@@ -16,6 +17,8 @@ function Formulir() {
     jur2: ''
   });
 
+  const [message, setMessage] = useState('');
+
   const handleChange = (e) => {
     const { id, value } = e.target;
     setFormData((prevData) => ({
@@ -24,10 +27,27 @@ function Formulir() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Data form:', formData);
-    // Tambahkan logika untuk mengirim data atau validasi form di sini
+    try {
+      // Kirim data ke endpoint /pendaftaran
+      await axios.post('http://localhost:3002/pendaftaran', formData);
+      setMessage('Pendaftaran berhasil disimpan!');
+      setFormData({
+        nama: '',
+        nilai: '',
+        alamat: '',
+        lahir: '',
+        email: '',
+        nisn: '',
+        no: '',
+        jur1: '',
+        jur2: ''
+      });
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      setMessage('Terjadi kesalahan saat menyimpan data.');
+    }
   };
 
   return (
@@ -36,6 +56,7 @@ function Formulir() {
       <div className="sela"></div>
       <div className="form-container">
         <h2>Form Pendaftaran Mahasiswa Baru</h2>
+        {message && <p>{message}</p>}
         <form id="form" onSubmit={handleSubmit}>
           <div className="mb-3">
             <label htmlFor="nama" className="form-label">Nama Lengkap</label>
@@ -121,29 +142,6 @@ function Formulir() {
             />
           </div>
 
-          <div className="mb-3">
-            <label htmlFor="jur1" className="form-label">Pilihan Jurusan Utama</label>
-            <input
-              type="text"
-              className="form-control"
-              id="jur1"
-              value={formData.jur1}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <div className="mb-3">
-            <label htmlFor="jur2" className="form-label">Pilihan Jurusan Kedua</label>
-            <input
-              type="text"
-              className="form-control"
-              id="jur2"
-              value={formData.jur2}
-              onChange={handleChange}
-              required
-            />
-          </div>
 
           <input type="submit" value="Kirim" className="btn btn-primary" />
         </form>

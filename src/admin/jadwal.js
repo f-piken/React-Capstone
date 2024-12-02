@@ -5,7 +5,7 @@ const Jadwal = () => {
     const [schedules, setSchedules] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:3001/schedules')
+        fetch('http://localhost:3002/schedules')
             .then((response) => response.json())
             .then((data) => setSchedules(data));
     }, []);
@@ -142,6 +142,7 @@ const Jadwal = () => {
                         <ul>
                             <li><a href="/Dashboard">Dashboard</a></li>
                             <li><a href="/Jadwal">Jadwal</a></li>
+                            <li><a href="/Pendaftar">Pendaftar</a></li>
                             <li><a href="#">Keuangan</a></li>
                             <li><a href="#">Presensi</a></li>
                             <li><a href="/">Logout</a></li>
@@ -163,7 +164,7 @@ const Jadwal = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {schedules.map((schedule) => (
+                            {/* {schedules.map((schedule) => (
                                 <tr key={schedule.id}>
                                     <td>{schedule.id}</td>
                                     <td>{schedule.nama}</td>
@@ -173,7 +174,7 @@ const Jadwal = () => {
                                     <td>{schedule.email}</td>
                                     <td>{schedule.statusPembayaran}</td>
                                 </tr>
-                            ))}
+                            ))} */}
                         </tbody>
                     </table>
                 </main>

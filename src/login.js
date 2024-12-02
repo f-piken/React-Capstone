@@ -8,6 +8,7 @@ const Login = () => {
     const [password, setPassword] = useState('');
 
     const handleSubmit = (e) => {
+        window.location.href='/Dashboard';
         e.preventDefault();
         // Logika untuk mengirim data login dapat ditambahkan di sini
         console.log('NIM:', nim);
@@ -114,7 +115,7 @@ const Login = () => {
                     <div className="form-group">
                         <label htmlFor="nim">NIM</label>
                         <input
-                            type="email"
+                            type="text"
                             id="nim"
                             name="nim"
                             value={nim}

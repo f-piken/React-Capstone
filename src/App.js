@@ -8,6 +8,7 @@ import Login from './login';
 import Info from './Info';
 import Dashboard from './admin/dashboard';
 import Jadwal from './admin/jadwal';
+import Pendaftar from './admin/pendaftar';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/Login" element={<Login/>} />
         <Route path="/Dashboard" element={<Dashboard/>} />
         <Route path="/Jadwal" element={<Jadwal/>} />
+        <Route path="/Pendaftar" element={<Pendaftar/>} />
       </Routes>
     </Router>
   );

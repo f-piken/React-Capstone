@@ -11,9 +11,9 @@ import Jadwal from './admin/jadwal';
 import Pendaftar from './admin/pendaftar';
 import Keuangan from './admin/keuangan';
 import Absen from './admin/absen';
-import Dashboard_m from './mahasiswa/dashboard_m';
-import Jadwal_m from './mahasiswa/jadwal_m';
-import Keuangan_m from './mahasiswa/keuangan_m';
+// import Dashboard_m from './mahasiswa/dashboard_m';
+// import Jadwal_m from './mahasiswa/jadwal_m';
+// import Keuangan_m from './mahasiswa/keuangan_m';
 
 
 function App() {
@@ -31,9 +31,9 @@ function App() {
         <Route path="/Pendaftar" element={<Pendaftar/>} />
         <Route path="/Absen" element={<Absen/>} />
         <Route path="/Keuangan" element={<Keuangan/>} />
-        <Route path="/Dashboard_m" element={<Dashboard_m/>} />
+        {/* <Route path="/Dashboard_m" element={<Dashboard_m/>} />
         <Route path="/Jadwal_m" element={<Jadwal_m/>} />
-        <Route path="/Keuangan_m" element={<Keuangan_m/>} />
+        <Route path="/Keuangan_m" element={<Keuangan_m/>} /> */}
         
       </Routes>
     </Router>

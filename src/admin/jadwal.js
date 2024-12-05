@@ -52,12 +52,12 @@ const Jadwal = () => {
                 </a>
               </li>
               <li>
-                <a href="#/Keuangan" className="block px-4 py-2 rounded hover:bg-teal-600">
+                <a href="/Keuangan" className="block px-4 py-2 rounded hover:bg-teal-600">
                   Keuangan
                 </a>
               </li>
               <li>
-                <a href="#" className="block px-4 py-2 rounded hover:bg-teal-600">
+                <a href="/Absen" className="block px-4 py-2 rounded hover:bg-teal-600">
                   Presensi
                 </a>
               </li>

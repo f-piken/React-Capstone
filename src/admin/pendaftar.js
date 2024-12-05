@@ -58,7 +58,7 @@ const Pendaftar = () => {
                 </a>
               </li>
               <li>
-                <a href="#" className="block px-4 py-2 rounded hover:bg-teal-600">
+                <a href="/" className="block px-4 py-2 rounded hover:bg-teal-600">
                   Presensi
                 </a>
               </li>

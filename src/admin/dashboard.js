@@ -56,7 +56,7 @@ const Dashboard = () => {
               </li>
               <li>
                 <a
-                  href="#"
+                  href="/Keuangan"
                   className="block px-4 py-2 rounded hover:bg-teal-600"
                 >
                   Keuangan
@@ -64,7 +64,7 @@ const Dashboard = () => {
               </li>
               <li>
                 <a
-                  href="#"
+                  href="/Absen"
                   className="block px-4 py-2 rounded hover:bg-teal-600"
                 >
                   Presensi

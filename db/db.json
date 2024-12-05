@@ -154,7 +154,7 @@
       "no": "087757932316"
     },
     {
-      "id": "030f",
+      "id": "5",
       "nama": "Ararek",
       "nilai": "87",
       "alamat": "karangloh",
@@ -163,7 +163,7 @@
       "nisn": "123456789",
       "no": "089601667431"
     },
-    {
+    { 
       "id": "ce85",
       "nama": "sapa",
       "nilai": "21",
@@ -171,9 +171,62 @@
       "lahir": "desdcxqe1",
       "email": "21e2@main.com",
       "nisn": "21w23",
-      "no": "31221312",
-      "jur1": "",
-      "jur2": ""
+      "no": "31221312"
+    },
+    {
+      "id": "6",
+      "nama": "Laurensius ",
+      "nilai": "90",
+      "alamat": "Batu",
+      "lahir": "Dili,24-06-2000",
+      "email": "Thio@gmail.com",
+      "nisn": "293333834",
+      "no": "088347463282847"
+    },
+    {
+      "id": "7",
+      "nama": "Weka",
+      "nilai": "80",
+      "alamat": "Bandulan",
+      "lahir": "Malang, 23-08-1999",
+      "email": "weka@gmail.com",
+      "nisn": "77447447447",
+      "no": "0948884446333"
+    }
+  ],
+  "pembayaran":[
+    {
+      "id": "f0ad",
+      "nama": "adji Bayu pamungkas",
+      "nilai": "50",
+      "alamat": "Perumahan Royal Campus ITN 2, Blok B, No.8",
+      "lahir": "2000-02-03",
+      "email": "Casimiro@tio24.com",
+      "nisn": "982827367463",
+      "no": "948884446333",
+      "metodePembayaran": "Transfer Bank"
+    },
+    {
+      "id": "8aaf",
+      "nama": "Sofian",
+      "nilai": "85",
+      "alamat": "Bali",
+      "lahir": "2025-01-04",
+      "email": "sof@gmail.com",
+      "nisn": "6663636363",
+      "no": "0992929292",
+      "metodePembayaran": "E-Wallet"
+    },
+    {
+      "id": "0ee2",
+      "nama": "Sofian",
+      "nilai": "85",
+      "alamat": "Bali",
+      "lahir": "2024-12-20",
+      "email": "sof@gmail.com",
+      "nisn": "6663636363",
+      "no": "0992929292",
+      "metodePembayaran": "Kartu Kredit"
     }
   ],
   "akun": [

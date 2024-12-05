@@ -163,7 +163,7 @@
       "nisn": "123456789",
       "no": "089601667431"
     },
-    { 
+    {
       "id": "ce85",
       "nama": "sapa",
       "nilai": "21",
@@ -192,9 +192,20 @@
       "email": "weka@gmail.com",
       "nisn": "77447447447",
       "no": "0948884446333"
+    },
+    {
+      "id": "8263",
+      "nama": "randi",
+      "nilai": "90",
+      "alamat": "malang",
+      "lahir": "2024-12-01",
+      "email": "randi@gmail.com",
+      "nisn": "21982717931",
+      "no": "091387738",
+      "metodePembayaran": "E-Wallet"
     }
   ],
-  "pembayaran":[
+  "pembayaran": [
     {
       "id": "f0ad",
       "nama": "adji Bayu pamungkas",

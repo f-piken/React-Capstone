@@ -110,12 +110,6 @@
       "judul": "Video 4",
       "videoUrl": "https://www.tiktok.com/embed/7443032536378395922",
       "description": "Deskripsi Video Keempat"
-    },
-    {
-      "id": "5",
-      "judul": "Video 4",
-      "videoUrl": "https://www.tiktok.com/embed/7443032536378395922",
-      "description": "Deskripsi Video Keempat"
     }
   ],
   "pendaftaran": [
@@ -168,14 +162,26 @@
       "email": "araara@gmail.com",
       "nisn": "123456789",
       "no": "089601667431"
+    },
+    {
+      "id": "ce85",
+      "nama": "sapa",
+      "nilai": "21",
+      "alamat": "wedfw",
+      "lahir": "desdcxqe1",
+      "email": "21e2@main.com",
+      "nisn": "21w23",
+      "no": "31221312",
+      "jur1": "",
+      "jur2": ""
     }
   ],
-  "akun":[
+  "akun": [
     {
-      "id":"1",
-      "username":"fiki",
-      "password":"123",
-      "role":"mhs"
+      "id": "1",
+      "username": "fiki",
+      "password": "123",
+      "role": "mhs"
     }
   ]
 }

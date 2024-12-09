@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import api from './api';
 import Header from './components/Header';
 import Footer from './components/Footer';
 
@@ -8,43 +8,30 @@ function Formulir() {
     nama: '',
     nilai: '',
     alamat: '',
+    tempat: '',
     lahir: '',
     email: '',
     nisn: '',
     no: '',
     metodePembayaran: '',
-  });
+});
 
-  const [message, setMessage] = useState('');
+const [message, setMessage] = useState(null);
 
-  const handleChange = (e) => {
+const handleChange = (e) => {
     const { id, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [id]: value,
-    }));
-  };
+    setFormData({ ...formData, [id]: value });
+};
 
-  const handleSubmit = async (e) => {
+const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:3002/pendaftaran', formData);
-      setMessage('Pendaftaran berhasil disimpan!');
-      setFormData({
-        nama: '',
-        nilai: '',
-        alamat: '',
-        lahir: '',
-        email: '',
-        nisn: '',
-        no: '',
-        metodePembayaran: '',
-      });
+        const response = await api.post('/pendaftaran', formData);
+        setMessage(response.data.message);
     } catch (error) {
-      console.error('Error submitting form:', error);
-      setMessage('Terjadi kesalahan saat menyimpan data.');
+        setMessage('Terjadi kesalahan. Silakan coba lagi.');
     }
-  };
+};
 
   return (
     <div className="App">
@@ -84,6 +71,17 @@ function Formulir() {
               type="text"
               id="alamat"
               value={formData.alamat}
+              onChange={handleChange}
+              className="w-full p-3 border border-teal-300 rounded-lg"
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="tempat" className="block text-teal-800 font-medium mb-2">Tempat Lah</label>
+            <input
+              type="text"
+              id="tempat"
+              value={formData.tempat}
               onChange={handleChange}
               className="w-full p-3 border border-teal-300 rounded-lg"
               required

@@ -1,7 +1,46 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import api from "../api";
 
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  // eslint-disable-next-line no-unused-vars
+  const [sessionData, setSessionData] = useState(null);
+
+  // Mengecek apakah ada data yang disimpan di sessionStorage saat komponen dimuat
+  useEffect(() => {
+    const storedData = sessionStorage.getItem('userSession');
+    if (storedData) {
+      setSessionData(storedData);
+    }
+  }, []);
+
+  // Fungsi untuk menghasilkan data sesi acak
+  const generateRandomSessionData = () => {
+    const randomString = Math.random().toString(36).substr(2, 9); // String acak
+    const timestamp = Date.now(); // Waktu saat ini dalam milidetik
+    return `${randomString}-${timestamp}`;
+  };
+
+  // Fungsi untuk menyimpan data saat link diklik
+  const handleLinkClick = async (event) => {
+    event.preventDefault(); // Mencegah aksi default dari tag <a>
+    
+    // Cek apakah data sesi sudah ada di sessionStorage
+    let dataToStore = sessionStorage.getItem('userSession');
+  
+    // Jika belum ada, buat data sesi baru
+    if (!dataToStore) {
+      dataToStore = generateRandomSessionData();
+      sessionStorage.setItem('userSession', dataToStore);
+      const hasil = await api.post('/buat-chat', {
+        pengirim : dataToStore,
+      });
+      console.log(hasil.data);
+    }
+  
+    setSessionData(dataToStore); // Update state untuk menampilkan data yang disimpan
+    window.location.href = "/Chat"; // Arahkan ke halaman Chat
+  };
 
   const pindahHalaman = (url) => {
     window.location.href = url;
@@ -33,12 +72,13 @@ function Header() {
 
         <ul className="hidden sm:flex sm:space-x-4 sm:flex-row sm:items-center">
           <li><a href="/" className="text-teal-800 text-lg">Home</a></li>
-          <li><a href="#" className="text-teal-800 text-lg">|</a></li>
+          <li><a href="/" className="text-teal-800 text-lg">|</a></li>
           <li><a href="/Video" className="text-teal-800 text-lg">Video</a></li>
-          <li><a href="#" className="text-teal-800 text-lg">|</a></li>
+          <li><a href="/Video" className="text-teal-800 text-lg">|</a></li>
           <li><a href="/Info" className="text-teal-800 text-lg">Info</a></li>
-          <li><a href="#" className="text-teal-800 text-lg">|</a></li>
-          <li><a href="/chat" className="text-teal-800 text-lg">Bantuan</a></li>
+          <li><a href="/Info" className="text-teal-800 text-lg">|</a></li>
+          <li><a href="/Chat" onClick={handleLinkClick} className="text-teal-800 text-lg">Bantuan</a></li>
+          {/* {sessionData && <p>Stored Session Data: {sessionData}</p>} */}
         </ul>
 
         {/* Tombol Login */}

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import Nav from './component/nav';
 
 const Pendaftar = () => {
   const [pendaftars, setPendaftar] = useState([]);
@@ -25,30 +26,7 @@ const Pendaftar = () => {
       {/* Container */}
       <div className="flex flex-1 overflow-hidden">
         {/* Sidebar */}
-        <aside className="w-48 bg-teal-700 text-white flex-shrink-0">
-          <nav>
-            <ul className="space-y-2 p-4">
-              <li>
-                <a href="/Dashboard" className="block px-4 py-2 rounded hover:bg-teal-600">Dashboard</a>
-              </li>
-              <li>
-                <a href="/Jadwal" className="block px-4 py-2 rounded hover:bg-teal-600">Jadwal</a>
-              </li>
-              <li>
-                <a href="/Pendaftar" className="block px-4 py-2 rounded hover:bg-teal-600">Pendaftar</a>
-              </li>
-              <li>
-                <a href="#" className="block px-4 py-2 rounded hover:bg-teal-600">Keuangan</a>
-              </li>
-              <li>
-                <a href="#" className="block px-4 py-2 rounded hover:bg-teal-600">Presensi</a>
-              </li>
-              <li>
-                <a href="/" className="block px-4 py-2 rounded hover:bg-teal-600">Logout</a>
-              </li>
-            </ul>
-          </nav>
-        </aside>
+        <Nav />
 
         {/* Main Content */}
         <main className="flex-1 bg-teal-50 p-6 overflow-y-auto">

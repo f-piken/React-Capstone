@@ -39,17 +39,6 @@ function App() {
         {role === "admin" && <Route path="/Pendaftar" element={<Pendaftar/>} />}
         {role === "admin" && <Route path="/Absen" element={<Absen/>} />}
         <Route path="*" element={<Navigate to="/login" />} />
-<<<<<<< HEAD
-        
-        
-        
-        
-        {/* <Route path="/Dashboard_m" element={<Dashboard_m/>} />
-        <Route path="/Jadwal_m" element={<Jadwal_m/>} />
-        <Route path="/Keuangan_m" element={<Keuangan_m/>} /> */}
-        
-=======
->>>>>>> 4-yoga
       </Routes>
     </Router>
   );

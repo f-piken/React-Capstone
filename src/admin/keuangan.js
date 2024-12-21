@@ -27,7 +27,7 @@ const Pendaftar = () => {
       <div className="flex flex-1 overflow-hidden">
         {/* Sidebar */}
         <Nav />
-
+        
         {/* Main Content */}
         <main className="flex-1 bg-teal-50 p-6 overflow-y-auto">
           <h2 className="text-2xl font-bold mb-4">Pendaftar</h2>

@@ -1,15 +1,21 @@
 import React, { useEffect, useState } from "react";
+import api from '../api';
+// eslint-disable-next-line no-unused-vars
 import axios from "axios";
 import Nav from './component/nav';
 
 const Pendaftar = () => {
-  const [pendaftars, setPendaftar] = useState([]);
+  const [data, setData] = useState([]);
 
   useEffect(() => {
-    axios
-      .get("http://localhost:3002/pendaftaran")
-      .then((response) => setPendaftar(response.data))
-      .catch((error) => console.error("Error fetching pendaftaran data:", error));
+    // Panggil API Laravel untuk mengambil data
+    api.get('/mahasiswa')
+      .then(response => {
+        setData(response.data);
+      })
+      .catch(error => {
+        console.error("Error fetching data:", error);
+      });
   }, []);
 
   return (
@@ -35,18 +41,29 @@ const Pendaftar = () => {
             <table className="min-w-full bg-white border border-teal-300 rounded-lg shadow">
               <thead className="bg-teal-700 text-white">
                 <tr>
-                  <th className="px-6 py-3 text-left font-medium">ID</th>
+                <th className="px-6 py-3 text-left font-medium">ID</th>
                   <th className="px-6 py-3 text-left font-medium">NIM</th>
                   <th className="px-6 py-3 text-left font-medium">Nama</th>
                   <th className="px-6 py-3 text-left font-medium">Alamat</th>
                   <th className="px-6 py-3 text-left font-medium">Tempat, Tgl Lahir</th>
-                  <th className="px-6 py-3 text-left font-medium">No. Tlp</th>
                   <th className="px-6 py-3 text-left font-medium">Email</th>
                   <th className="px-6 py-3 text-left font-medium">Status Pembayaran</th>
                 </tr>
               </thead>
               <tbody>
-                {pendaftars.length > 0 ? (
+                {data.map(row => (
+                  <tr key={row.id}>
+                    <td className="px-6 py-4">{row.id}</td>
+                    <td className="px-6 py-4">{row.nim}</td>
+                    <td className="px-6 py-4">{row.nama}</td>
+                    <td className="px-6 py-4">{row.alamat}</td>
+                    <td className="px-6 py-4">{row.tempat}, {row.tgl_lahir}</td>
+                    <td className="px-6 py-4">{row.email}</td>
+                    <td className="px-6 py-4">{row.status_pembayaran}</td>
+
+                  </tr>
+                ))}
+                {/* {pendaftars.length > 0 ? (
                   pendaftars.map((daftar) => (
                     <tr
                       key={daftar.id}
@@ -71,7 +88,7 @@ const Pendaftar = () => {
                       Tidak ada pendaftar.
                     </td>
                   </tr>
-                )}
+                )} */}
               </tbody>
             </table>
           </div>

@@ -1,11 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-<<<<<<< HEAD
-  baseURL: 'http://localhost:8000/api', // Ganti dengan URL API Laravel kamu
-=======
   baseURL: 'http://localhost:8000/api',
->>>>>>> 1c5ee2c1 (auth-chat)
 });
 
 api.interceptors.request.use(

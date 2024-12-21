@@ -1,148 +1,86 @@
 // src/components/LoginForm.js
 import React, { useState } from 'react';
 import loginImage from './images/login.jpeg';
-// import styles from './login.module.css';  // Pastikan Anda mengimpor file CSS Anda
+import { login } from "./auth";
 
 const Login = () => {
-    const [nim, setNim] = useState('');
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
 
-    const handleSubmit = (e) => {
-        window.location.href='/Dashboard';
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Logika untuk mengirim data login dapat ditambahkan di sini
-        console.log('NIM:', nim);
-        console.log('Password:', password);
-        // Contoh pengiriman data ke server
-        // fetch('/login', {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //     },
-        //     body: JSON.stringify({ nim, password }),
-        // });
+
+        const success = await login(username, password);
+        if (success) {
+            const role = localStorage.getItem("role");
+            if (role === "admin") {
+                window.location.href = "/dashboardAdmin";
+            } else {
+                window.location.href = "/dashboardUser";
+            }
+        } else {
+            setError("Invalid username or password");
+        }
     };
 
     return (
-        <div>
-            <style>
-                {`
-                    @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-                    body {
-                        font-family: "Poppins", sans-serif;
-                        background-image: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0)), url('images/v1_4.png');
-                        background-size: cover;
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        height: 100vh;
-                        margin: 0;
-                    }
-                                    
-                    .login-container {
-                        background-color: #ffffff;
-                        border-radius: 20px;
-                        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-                        width: 1000px;
-                        height: 500px;
-                    }
-                                    
-                    .login-container .form{
-                        display: flex;
-                    }
-                    .login-container .form .gambar{
-                        background-image: url(${loginImage});
-                        border-radius: 20px 0 0 20px;
-                        background-size: cover;
-                        padding-right : 500px;
-                        width: 1000px;
-                        height: 500px;
-                    }
-                                    
-                    .login{
-                        margin-left: 50px;
-                    }
-                    .login h2{
-                        font-size: 50px;
-                    }
-                                    
-                    .form-group {
-                        margin-bottom: 15px;
-                    }
-                                    
-                    label {
-                        display: block;
-                        margin-bottom: 5px;
-                    }
-                                    
-                    input {
-                        width: 94%;
-                        padding: 10px;
-                        border: 1px solid #ccc;
-                        border-radius: 4px;
-                    }
-                                    
-                    input:focus {
-                        border-color: #1E6262;
-                        outline: none;
-                    }
-                                    
-                    .login-btn {
-                        width: 350px;
-                        padding: 10px;
-                        background-color: #1E6262;
-                        color: white;
-                        border: none;
-                        border-radius: 4px;
-                        cursor: pointer;
-                    }
-                                    
-                    .login-btn:hover {
-                        background-color: #B4F1F1;
-                    }
-                                    
-                    .material-icons{
-                        margin-right: 10px;
-                        margin-top: 10px;
-                    }
-                `}
-            </style>
-        <div className="login-container">
-            <div className="form">
-                <div className="gambar"></div>
-                <form className="login" onSubmit={handleSubmit}>
-                    <h2>Login</h2>
-                    <div className="form-group">
-                        <label htmlFor="nim">NIM</label>
-                        <input
-                            type="text"
-                            id="nim"
-                            name="nim"
-                            value={nim}
-                            onChange={(e) => setNim(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="password">Password</label>
-                        <input
-                            type="password"
-                            id="password"
-                            name="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            required
-                        />
-                    </div>
-                    <button type="submit" className="login-btn">Login</button>
-                </form>
-                <a href="/">
-                    <span className="material-icons" style={{ fontSize: '30px', fontWeight: 'bold', color: '#1E6262' }}>
-                        close
-                    </span>
-                </a>
+        <div className="flex items-center justify-center min-h-screen bg-cover bg-center bg-gray-900 bg-opacity-75" style={{ backgroundImage: "url('images/v1_4.png')" }}>
+            <div className="bg-white rounded-2xl shadow-lg flex w-[1000px] h-[500px] overflow-hidden">
+                <div
+                    className="w-1/2 bg-cover bg-center"
+                    style={{ backgroundImage: `url(${loginImage})` }}
+                ></div>
+
+                <div className="w-1/2 p-10 flex flex-col justify-center">
+                    <a href="/" className="mb-10 ml-[25rem] inline-flex items-center text-teal-600 hover:text-teal-500 transition duration-300">
+                        <span className="material-icons text-4xl">close</span>
+                    </a>
+                    <h2 className="text-4xl font-bold mb-12 text-gray-800">Login</h2>
+                    <form onSubmit={handleSubmit} className="space-y-6 mb-20">
+                        <div>
+                            <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-2">
+                                NIM
+                            </label>
+                            <input
+                                type="text"
+                                id="username"
+                                name="username"
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                                required
+                                className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+                            />
+                        </div>
+
+                        <div>
+                            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
+                                Password
+                            </label>
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                required
+                                className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
+                            />
+                        </div>
+
+                        {error && (
+                            <div className="text-red-500 text-sm mb-4">{error}</div>
+                        )}
+
+                        <button
+                            type="submit"
+                            className="w-full bg-teal-600 text-white py-2 rounded-md hover:bg-teal-500 transition duration-300"
+                        >
+                            Login
+                        </button>
+                    </form>
+                </div>
             </div>
-        </div>
         </div>
     );
 };

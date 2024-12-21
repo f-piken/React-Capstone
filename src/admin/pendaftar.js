@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from "react";
+<<<<<<< HEAD
 import api from '../api';
+=======
+import axios from "axios";
+import Nav from './component/nav';
+>>>>>>> 1c5ee2c1 (auth-chat)
 
 const Pendaftar = () => {
   const [data, setData] = useState([]);
@@ -29,6 +34,7 @@ const Pendaftar = () => {
       {/* Container */}
       <div className="flex flex-1 overflow-hidden">
         {/* Sidebar */}
+<<<<<<< HEAD
         <aside className="w-48 bg-teal-700 text-white flex-shrink-0">
           <nav>
             <ul className="space-y-2 p-4">
@@ -74,6 +80,9 @@ const Pendaftar = () => {
             </ul>
           </nav>
         </aside>
+=======
+        <Nav />
+>>>>>>> 1c5ee2c1 (auth-chat)
 
         {/* Main Content */}
         <main className="flex-1 bg-teal-50 p-6 overflow-y-auto">

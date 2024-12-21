@@ -28,7 +28,7 @@ function Footer() {
         </div>
         <div className="right sm:w-1/3 text-center sm:text-left">
           <p className="ajak text-2xl sm:text-3xl font-bold mb-12">Apakah kamu ingin mendaftar kuliah?</p>
-          <a className="daftar text-lg sm:text-xl" href="#">Pendaftaran mahasiswa baru <span className="material-icons align-middle">arrow_right_alt</span></a>
+          <a className="daftar text-lg sm:text-xl" href="/formulir">Pendaftaran mahasiswa baru <span className="material-icons align-middle">arrow_right_alt</span></a>
           <p className="ikut text-xl sm:text-2xl font-bold mt-12">Ikuti kami juga</p>
           <div className="social-media mt-4 flex justify-center sm:justify-start">
             <a href="#" className="mr-4 sm:mr-6"><img src="../images/v4_5.png" alt="Social Media" className="w-10 sm:w-12" /></a>

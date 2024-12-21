@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Nav from './component/nav';
 
 const Dashboard = () => {
   const [step, setStep] = useState(1);
@@ -27,60 +28,7 @@ const Dashboard = () => {
       {/* Container */}
       <div className="flex flex-1 overflow-hidden">
         {/* Sidebar */}
-        <aside className="w-48 bg-teal-700 text-white flex-shrink-0">
-          <nav>
-            <ul className="space-y-2 p-4">
-              <li>
-                <a
-                  href="/Dashboard"
-                  className="block px-4 py-2 rounded hover:bg-teal-600"
-                >
-                  Dashboard
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/Pendaftar"
-                  className="block px-4 py-2 rounded hover:bg-teal-600"
-                >
-                  Pendaftar
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/Jadwal"
-                  className="block px-4 py-2 rounded hover:bg-teal-600"
-                >
-                  Jadwal
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/Keuangan"
-                  className="block px-4 py-2 rounded hover:bg-teal-600"
-                >
-                  Keuangan
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/Absen"
-                  className="block px-4 py-2 rounded hover:bg-teal-600"
-                >
-                  Presensi
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/"
-                  className="block px-4 py-2 rounded hover:bg-teal-600"
-                >
-                  Logout
-                </a>
-              </li>
-            </ul>
-          </nav>
-        </aside>
+        <Nav />
 
         {/* Main Content */}
         <main className="flex-1 bg-teal-50 p-6 overflow-y-auto">
@@ -129,7 +77,7 @@ const Dashboard = () => {
                   <span className="text-sm text-teal-700">{days[index]}</span>
                   {/* Connecting Line */}
                   {index < 3 && (
-                    <div className="w-16 h-1 bg-teal-500"></div> // Garis penghubung lebih tebal
+                    <div className="w-16 h-1 bg-teal-500"></div>
                   )}
                 </div>
               ))}

@@ -16,7 +16,6 @@ import ChatMenunggu from './admin/chatMenunggu';
 import { getRole } from "./auth";
 import Dashboard_m from './mahasiswa/dashboard_m';
 import Jadwal_m from './mahasiswa/jadwal_m';
-import Keuangan_m from './mahasiswa/keuangan_m';
 import Pembayaran_m from './mahasiswa/pembayaran_m';
 import Absen_m from './mahasiswa/absen_m';
 

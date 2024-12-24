@@ -28,7 +28,7 @@ function Formulir() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:3002/pendaftaran', formData);
+      await axios.post('http://localhost:3002/api/pendaftaran', formData);
       setMessage('Pendaftaran berhasil disimpan!');
       setFormData({
         nama: '',

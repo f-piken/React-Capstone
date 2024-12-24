@@ -1,24 +1,70 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const Pendaftar = () => {
-  const [pendaftars, setPendaftar] = useState([]);
+const Pembayaran = () => {
+  const [pembayaran, setPembayaran] = useState([]);  // Perbaiki penamaan dari pemabayaran menjadi pembayaran
+  const [mahasiswa, setMahasiswa] = useState(null);
+  const [loading, setLoading] = useState(true);  // State untuk status loading
+  const currentDate = new Date().toLocaleDateString();
 
+  // Fungsi untuk format angka menjadi format Rupiah
+  const formatRupiah = (amount) => {
+    return new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR",
+    }).format(amount);
+  };
+
+  // Fetch data mahasiswa dan pembayaran
   useEffect(() => {
-    axios
-      .get("http://localhost:3002/pendaftaran")
-      .then((response) => setPendaftar(response.data))
-      .catch((error) => console.error("Error fetching pendaftaran data:", error));
+    const fetchData = async () => {
+      const token = localStorage.getItem('token'); // Ambil token dari localStorage
+
+      if (!token) {
+        console.log('Token tidak ditemukan');
+        setLoading(false);
+        return;
+      }
+
+      try {
+        // Ambil data mahasiswa
+        const mahasiswaResponse = await axios.get('http://localhost:8000/api/mahasiswa/me', {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setMahasiswa(mahasiswaResponse.data);
+
+        // Ambil data pembayaran
+        const pembayaranResponse = await axios.get('http://localhost:8000/api/mahasiswa/pembayaran/me', {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setPembayaran(pembayaranResponse.data); // Perbaiki ini untuk menggunakan pembayaran
+        
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      } finally {
+        setLoading(false);  // Set loading ke false setelah data selesai di-fetch
+      }
+    };
+
+    fetchData();
   }, []);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <span className="text-xl font-semibold">Memuat data...</span>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col h-screen bg-teal-100 font-sans">
       {/* Header */}
       <header className="bg-teal-200 text-teal-800 px-6 py-4 flex justify-between items-center shadow">
-        <h1 className="text-xl font-bold">Admin Panel</h1>
+        <h1 className="text-xl font-bold">Panel Mahasiswa</h1>
         <div className="flex items-center">
           <span className="material-icons text-3xl mr-2">account_circle</span>
-          <span>Munet</span>
+          <span>{mahasiswa ? mahasiswa.nama : 'Nama tidak tersedia'}</span>
         </div>
       </header>
 
@@ -30,7 +76,7 @@ const Pendaftar = () => {
             <ul className="space-y-2 p-4">
               <li>
                 <a
-                  href="/Dashboard"
+                  href="/dashboardMahasiswa"
                   className="block px-4 py-2 rounded hover:bg-teal-600"
                 >
                   Dashboard
@@ -38,7 +84,7 @@ const Pendaftar = () => {
               </li>
               <li>
                 <a
-                  href="/Jadwal_m"
+                  href="/jadwalMahasiswa"
                   className="block px-4 py-2 rounded hover:bg-teal-600"
                 >
                   Jadwal
@@ -46,24 +92,25 @@ const Pendaftar = () => {
               </li>
               <li>
                 <a
-                  href="/Pendaftar"
+                  href="/pembayaranMahasiswa"
                   className="block px-4 py-2 rounded hover:bg-teal-600"
                 >
-                  Pendaftar
+                  Pembayaran
                 </a>
               </li>
               <li>
-                <a href="/Keuangan_m" className="block px-4 py-2 rounded hover:bg-teal-600">
-                  Keuangan
-                </a>
-              </li>
-              <li>
-                <a href="/" className="block px-4 py-2 rounded hover:bg-teal-600">
+                <a
+                  href="/absenMahasiswa"
+                  className="block px-4 py-2 rounded hover:bg-teal-600"
+                >
                   Presensi
                 </a>
               </li>
               <li>
-                <a href="/" className="block px-4 py-2 rounded hover:bg-teal-600">
+                <a
+                  href="/"
+                  className="block px-4 py-2 rounded hover:bg-teal-600"
+                >
                   Logout
                 </a>
               </li>
@@ -81,16 +128,14 @@ const Pendaftar = () => {
                   <th className="px-6 py-3 text-left font-medium">ID</th>
                   <th className="px-6 py-3 text-left font-medium">NIM</th>
                   <th className="px-6 py-3 text-left font-medium">Nama</th>
-                  <th className="px-6 py-3 text-left font-medium">Alamat</th>
-                  <th className="px-6 py-3 text-left font-medium">Tempat, Tgl Lahir</th>
-                  <th className="px-6 py-3 text-left font-medium">No. Tlp</th>
-                  <th className="px-6 py-3 text-left font-medium">Email</th>
+                  <th className="px-6 py-3 text-left font-medium">Nominal</th>
+                  <th className="px-6 py-3 text-left font-medium">Metode Pembayaran</th>
                   <th className="px-6 py-3 text-left font-medium">Status Pembayaran</th>
                 </tr>
               </thead>
               <tbody>
-                {pendaftars.length > 0 ? (
-                  pendaftars.map((daftar) => (
+                {pembayaran.length > 0 ? (
+                  pembayaran.map((daftar) => (
                     <tr
                       key={daftar.id}
                       className="hover:bg-teal-100 border-t border-teal-300"
@@ -98,11 +143,9 @@ const Pendaftar = () => {
                       <td className="px-6 py-4">{daftar.id}</td>
                       <td className="px-6 py-4">{daftar.nim}</td>
                       <td className="px-6 py-4">{daftar.nama}</td>
-                      <td className="px-6 py-4">{daftar.alamat}</td>
-                      <td className="px-6 py-4">{daftar.tempatLahir}, {daftar.tglLahir}</td>
-                      <td className="px-6 py-4">{daftar.noTlp}</td>
-                      <td className="px-6 py-4">{daftar.email}</td>
-                      <td className="px-6 py-4">{daftar.statusPembayaran}</td>
+                      <td className="px-6 py-4">{formatRupiah(daftar.nominal)}</td> {/* Format nominal menjadi Rupiah */}
+                      <td className="px-6 py-4">{daftar.metode_pembayaran}</td>
+                      <td className="px-6 py-4">{daftar.status_pembayaran}</td>
                     </tr>
                   ))
                 ) : (
@@ -124,4 +167,4 @@ const Pendaftar = () => {
   );
 };
 
-export default Pendaftar;
+export default Pembayaran;

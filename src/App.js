@@ -15,10 +15,10 @@ import ChatAdmin from './admin/chatAdmin';
 import ChatMenunggu from './admin/chatMenunggu';
 import Konfirm from './konfirmasi';
 import { getRole } from "./auth";
-// import Dashboard_m from './mahasiswa/dashboard_m';
-// import Jadwal_m from './mahasiswa/jadwal_m';
-// import Keuangan_m from './mahasiswa/keuangan_m';
-
+import Dashboard_m from './mahasiswa/dashboard_m';
+import Jadwal_m from './mahasiswa/jadwal_m';
+import Pembayaran_m from './mahasiswa/pembayaran_m';
+import Absen_m from './mahasiswa/absen_m';
 
 function App() {
   const role = getRole();
@@ -33,13 +33,29 @@ function App() {
         <Route path="/Chat" element={<Chat/>} />
         <Route path="/confirm" element={<Konfirm/>} />
         <Route path="/login" element={<Login />} />
-        {role === "admin" && <Route path="/DashboardAdmin" element={<Dashboard/>} />}
-        {role === "admin" && <Route path="/ChatAdmin" element={<ChatMenunggu/>} />}
-        {role === "admin" && <Route path="/AdminMessage" element={<ChatAdmin/>} />}
-        {role === "admin" && <Route path="/Pembayaran" element={<Keuangan/>} />}
-        {role === "admin" && <Route path="/Jadwal" element={<Jadwal/>} />}
-        {role === "admin" && <Route path="/Pendaftar" element={<Pendaftar/>} />}
-        {role === "admin" && <Route path="/Absen" element={<Absen/>} />}
+        
+        {role === "admin" ? (
+          <>
+            <Route path="/dashboardAdmin" element={<Dashboard />} />
+            <Route path="/chatadmin" element={<ChatMenunggu />} />
+            <Route path="/adminmessage" element={<ChatAdmin />} />
+            <Route path="/pembayaran" element={<Keuangan />} />
+            <Route path="/jadwal" element={<Jadwal />} />
+            <Route path="/pendaftar" element={<Pendaftar />} />
+            <Route path="/absen" element={<Absen />} />
+          </>
+        ) : role === "mahasiswa" ? (
+          <>
+            <Route path="/dashboardMahasiswa" element={<Dashboard_m />} />
+            <Route path="/pembayaranMahasiswa" element={<Pembayaran_m />} />
+            <Route path="/jadwalMahasiswa" element={<Jadwal_m />} />
+            <Route path="/absenMahasiswa" element={<Absen_m />} />
+          </>
+        ) : (
+          <Route path="*" element={<Navigate to="/login" />} />
+        )}
+        
+        {/* Route wildcard untuk rute yang tidak dikenali */}
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
     </Router>

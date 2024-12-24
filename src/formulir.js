@@ -15,18 +15,18 @@ function Formulir() {
     nisn: '',
     no: '',
     metodePembayaran: '',
-});
+  });
 
 const [message, setMessage] = useState(null);
 const [loading, setLoading] = useState(false);  // State to manage loading
 const navigate = useNavigate();
 
-const handleChange = (e) => {
+  const handleChange = (e) => {
     const { id, value } = e.target;
     setFormData({ ...formData, [id]: value });
-};
+  };
 
-const handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);  // Show loading popup
     try {
@@ -56,7 +56,7 @@ const handleSubmit = async (e) => {
     } finally {
         setLoading(false);
     }
-};
+  };
 
   return (
     <div className="App">
@@ -91,6 +91,7 @@ const handleSubmit = async (e) => {
                   required
                 />
               </div>
+
               <div className="mb-4">
                 <label htmlFor="nilai" className="block text-teal-800 font-medium mb-2">Nilai</label>
                 <input

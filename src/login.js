@@ -1,25 +1,39 @@
 // src/components/LoginForm.js
 import React, { useState } from 'react';
 import loginImage from './images/login.jpeg';
-import { login } from "./auth";
+import axios from 'axios';
 
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 
+    // Fungsi untuk menangani login
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const success = await login(username, password);
-        if (success) {
-            const role = localStorage.getItem("role");
-            if (role === "admin") {
-                window.location.href = "/dashboardAdmin";
+        try {
+            // Kirim permintaan login ke API
+            const response = await axios.post('http://localhost:8000/api/login', {
+                username,
+                password,
+            });
+
+            // Ambil access_token dan role dari response
+            const { access_token, role } = response.data;
+
+            // Simpan token dan role di localStorage
+            localStorage.setItem('token', access_token);
+            localStorage.setItem('role', role);
+
+            // Redirect berdasarkan role
+            if (role === 'admin') {
+                window.location.href = '/dashboardAdmin';
             } else {
-                window.location.href = "/dashboardUser";
+                window.location.href = '/dashboardMahasiswa';
             }
-        } else {
+        } catch (error) {
+            console.error('Login failed:', error);
             setError("Invalid username or password");
         }
     };

@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from "react";
+<<<<<<< HEAD
 import api from '../api';
 // eslint-disable-next-line no-unused-vars
 import axios from "axios";
+=======
+// import axios from "axios";
+>>>>>>> fab04265 (email-pemabayaran)
 import Nav from './component/nav';
+import api from '../api';
 
 const Pendaftar = () => {
   const [data, setData] = useState([]);
@@ -33,7 +38,6 @@ const Pendaftar = () => {
       <div className="flex flex-1 overflow-hidden">
         {/* Sidebar */}
         <Nav />
-        
         {/* Main Content */}
         <main className="flex-1 bg-teal-50 p-6 overflow-y-auto">
           <h2 className="text-2xl font-bold mb-4">Keuangan</h2>

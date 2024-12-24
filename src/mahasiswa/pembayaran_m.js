@@ -99,10 +99,12 @@ const Pembayaran = () => {
                 </a>
               </li>
               <li>
-                <a
-                  href="/absenMahasiswa"
-                  className="block px-4 py-2 rounded hover:bg-teal-600"
-                >
+                <a href="/Keuangan_m" className="block px-4 py-2 rounded hover:bg-teal-600">
+                  Keuangan
+                </a>
+              </li>
+              <li>
+                <a href="/" className="block px-4 py-2 rounded hover:bg-teal-600">
                   Presensi
                 </a>
               </li>

@@ -13,6 +13,7 @@ import Keuangan from './admin/keuangan';
 import Absen from './admin/absen';
 import ChatAdmin from './admin/chatAdmin';
 import ChatMenunggu from './admin/chatMenunggu';
+import Konfirm from './konfirmasi';
 import { getRole } from "./auth";
 import Dashboard_m from './mahasiswa/dashboard_m';
 import Jadwal_m from './mahasiswa/jadwal_m';
@@ -26,10 +27,11 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/formulir" element={<Formulir />} />
-        <Route path="/video" element={<Video />} />
-        <Route path="/info" element={<Info />} />
-        <Route path="/chat" element={<Chat />} />
+        <Route path="/Formulir" element={<Formulir/>} />
+        <Route path="/Video" element={<Video/>} />
+        <Route path="/Info" element={<Info/>} />
+        <Route path="/Chat" element={<Chat/>} />
+        <Route path="/confirm" element={<Konfirm/>} />
         <Route path="/login" element={<Login />} />
         
         {role === "admin" ? (

@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import api from '../api';
-// eslint-disable-next-line no-unused-vars
-import axios from "axios";
+// import axios from "axios";
 import Nav from './component/nav';
+import api from '../api';
 
 const Pendaftar = () => {
   const [data, setData] = useState([]);

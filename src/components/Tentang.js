@@ -49,20 +49,18 @@ function Tentang() {
       <h2 className="font-bold text-center text-3xl sm:text-5xl mb-10">TENTANG</h2>
       <div className="flex flex-col sm:flex-row gap-8 sm:gap-40 ml-0 sm:ml-20">
         <div className="w-full sm:w-1/2">
-        <div className="flex flex-col sm:flex-row items-center mb-6 transform transition-all duration-1000 scale-in">
-  <img src="/images/v2_59.png" alt="Logo Kampus" className="w-24 mb-4 sm:mb-0 sm:mr-6" />
-  <div>
-    <h3 className="font-bold text-3xl sm:text-5xl mb-4">Program Studi</h3>
-    <p>Program Studi yang tersedia di kampus kami:</p>
-    <ul>
-      {programStudiData.map((item) => (
-        <li key={item.id}>{item.content}</li>
-      ))}
-    </ul>
-  </div>
-</div>
-
-
+          <div className="flex flex-col sm:flex-row items-center mb-6 transform transition-all duration-1000 scale-in">
+            <img src="/images/v2_59.png" alt="Logo Kampus" className="w-24 mb-4 sm:mb-0 sm:mr-6" />
+            <div>
+              <h3 className="font-bold text-3xl sm:text-5xl mb-4">Program Studi</h3>
+              <p>Program Studi yang tersedia di kampus kami:</p>
+              <ul>
+                {programStudiData.map((item) => (
+                  <li key={item.id}>{item.content}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
           <h3 className="font-bold text-3xl sm:text-5xl mb-4 transform transition-all duration-1000 scale-in">Organisasi</h3>
           <p className="transform transition-all duration-1000 scale-in">Organisasi yang ada di kampus kami:</p>
           <ul className="mb-8 transform transition-all duration-1000 scale-in">

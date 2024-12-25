@@ -187,7 +187,8 @@ const navigate = useNavigate();
                   required
                 >
                   <option value="" disabled>Pilih metode pembayaran</option>
-                  <option value="transfer_bank">Transfer Bank</option>
+                  <option value="bank_transfer">Transfer Bank</option>
+                  <option value="credit_card">Kartu Kredit</option>
                   <option value="gopay">Gopay</option>
                   <option value="shopeepay">ShopeePay</option>
                   <option value="qris">QRIS</option>

@@ -6,16 +6,16 @@ import api from '../api';
 const Pendaftar = () => {
   const [data, setData] = useState([]);
 
-  useEffect(() => {
-    // Panggil API Laravel untuk mengambil data
-    api.get('/keuangan')
-      .then(response => {
-        setData(response.data);
-      })
-      .catch(error => {
-        console.error("Error fetching data:", error);
-      });
-  }, []);
+useEffect(() => {
+  // Panggil API Laravel untuk mengambil data
+  api.get('/keuangan')
+    .then(response => {
+      setData(response.data);
+    })
+    .catch(error => {
+      console.error("Error fetching data:", error);
+    });
+}, []);
 
   return (
     <div className="flex flex-col h-screen bg-teal-100 font-sans">

@@ -1,7 +1,9 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from "react";
 import api from "../api";
 import axios from "axios";
 import Nav from './component/nav';
+import Header from "./component/header";
 
 const ChatMenunggu = () => {
   const [data, setData] = useState([]); // Data chat
@@ -14,6 +16,9 @@ const ChatMenunggu = () => {
   const [selectedChatId, setSelectedChatId] = useState(null); // ID chat yang dipilih untuk disetujui
   const [selectedEndChatId, setSelectedEndChatId] = useState(null); // ID chat yang dipilih untuk diakhiri
   const API_URL = "http://localhost:8000/api";
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  
+  const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -125,22 +130,16 @@ const ChatMenunggu = () => {
   return (
     <div className="flex flex-col h-screen bg-teal-100 font-sans">
       {/* Header */}
-      <header className="bg-teal-200 text-teal-800 px-6 py-4 flex justify-between items-center shadow">
-        <h1 className="text-xl font-bold">Admin Panel</h1>
-        <div className="flex items-center">
-          <span className="material-icons text-3xl mr-2">account_circle</span>
-          <span>{user ? user.name : "Loading..."}</span>
-        </div>
-      </header>
+      <Header  isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen}/>
 
       {/* Container */}
       <div className="flex flex-1 overflow-hidden">
         {/* Sidebar */}
-        <Nav />
+        <Nav isSidebarOpen={isSidebarOpen} />
 
         {/* Main Content */}
         <main className="flex-1 bg-teal-50 p-6 overflow-y-auto">
-          <h2 className="text-6xl font-bold mb-4">Chat</h2>
+          <h2 className="text-4xl font-bold mb-4">Chat</h2>
 
           {/* Filter Status Chat */}
           <div>
@@ -148,7 +147,7 @@ const ChatMenunggu = () => {
               {["menunggu", "berlangsung", "berakhir"].map((item) => (
                 <li
                   key={item}
-                  className={`mr-4 p-2 rounded-lg cursor-pointer ${status === item ? "bg-teal-700 text-white" : "bg-teal-500"}`}
+                  className={`w-28 text-center text-white mr-4 p-2 rounded-lg cursor-pointer ${status === item ? "bg-teal-700" : "bg-teal-500"}`}
                 >
                   <button onClick={() => setStatus(item)}>{item.charAt(0).toUpperCase() + item.slice(1)}</button>
                 </li>

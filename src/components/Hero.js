@@ -41,7 +41,7 @@ function Hero() {
           </p>
           <button
             id="openForm"
-            className="register-button mt-3 bg-teal-800 text-white px-8 py-3 rounded-lg text-xl animate-on-scroll"
+            className="register-button mt-3 bg-teal-800 hover:bg-teal-700 text-white px-8 py-3 rounded-lg text-xl animate-on-scroll"
             onClick={() => pindahHalaman('/formulir')}
           >
             Daftar

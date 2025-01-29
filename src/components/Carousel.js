@@ -20,21 +20,22 @@ function Carousel() {
   };
 
   useEffect(() => {
+    // Ganti URL di sini untuk mengambil data dari API yang benar
     axios
-      .get('http://localhost:3002/slider')
+      .get('http://localhost:8000/api/corousel') // Mengambil data dari Laravel API
       .then((response) => {
-        setSliderData(response.data);
+        setSliderData(response.data.corousel); // Menyimpan data slider dari response API
       })
       .catch((error) => {
         console.error('Error fetching slider data:', error);
       });
 
-    const interval = setInterval(nextSlide, 5000); // Automatically switch slides every 5 seconds
+    const interval = setInterval(nextSlide, 5000); // Automatic slide change every 5 seconds
     return () => clearInterval(interval); // Clean up interval on component unmount
   }, [sliderData.length]);
 
   return (
-    <div className="carousel relative max-w-full overflow-hidden pt-20 mx-auto">
+    <div className="carousel relative max-w-full overflow-hidden pt-[88px] mx-auto">
       <div
         className="carousel-inner flex transition-transform duration-500 ease-in-out"
         style={{ transform: `translateX(-${activeIndex * 100}%)` }}
@@ -45,9 +46,9 @@ function Carousel() {
             className="carousel-item w-full flex-none"
           >
             <img
-              src={slide.source}
+              src={slide.gambar}  // Ganti 'source' menjadi 'gambar' sesuai data API Anda
               alt={`Slide ${index + 1}`}
-              className="w-full h-48 sm:h-72 object-cover"
+              className="w-full h-80 sm:h-80 object-cover"
             />
           </div>
         ))}

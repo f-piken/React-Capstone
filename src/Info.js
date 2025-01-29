@@ -1,8 +1,40 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
+import api from "./api";
 import Header from './components/Header';
 import Footer from './components/Footer';
 
 function Info() {
+  const [syaratData, setSyaratData] = useState([]);
+  const [kegiatanData, setKegiatanData] = useState([]);
+  const [loadingSyarat, setLoadingSyarat] = useState(true);
+  const [loadingKegiatan, setLoadingKegiatan] = useState(true);
+
+  useEffect(() => {
+    // Ambil data syarat dari API
+    api.get("/syarat")
+      .then((response) => {
+        setSyaratData(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching syarat data:", error);
+      })
+      .finally(() => {
+        setLoadingSyarat(false);
+      });
+
+    // Ambil data kegiatan dari API
+    api.get("/kegiatan")
+      .then((response) => {
+        setKegiatanData(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching kegiatan data:", error);
+      })
+      .finally(() => {
+        setLoadingKegiatan(false);
+      });
+  }, []);
+
   const pindahHalaman = (url) => {
     window.location.href = url;
   };
@@ -10,13 +42,23 @@ function Info() {
   return (
     <div className="App">
       <Header />
-      
+
       {/* Informasi Section */}
-      <section id="informasi" className="bg-teal-60 py-40">
-        <div className="container mx-auto px-6 text-center">
-          <h2 className="text-3xl font-semibold mb-4">Selamat Datang di Penerimaan Mahasiswa Baru</h2>
-          <p className="text-lg text-gray-700">Penerimaan mahasiswa baru untuk tahun akademik 2024/2025 telah dibuka. Jangan lewatkan kesempatan untuk bergabung dengan kami dan menjadi bagian dari universitas terbaik!</p>
-          <p className="text-xl text-gray-700">Daftarkan dirimu sekarang!</p>
+      <section id="informasi" className="py-4">
+      {kegiatanData[0] && (
+        <div
+          className="h-screen w-screen bg-cover bg-center flex flex-col justify-center items-center text-white"
+          style={{ backgroundImage: "url('./images/info.png')" }}
+        >
+          <h2 className="text-3xl font-semibold mb-4 text-black">
+            Selamat Datang di Penerimaan Mahasiswa Baru
+          </h2>
+          <p className="text-lg text-center text-black mr-80 ml-80">
+            Penerimaan mahasiswa baru untuk tahun akademik {kegiatanData[0].tanggal} telah dibuka.
+            Jangan lewatkan kesempatan untuk bergabung dengan kami dan menjadi bagian
+            dari universitas terbaik!
+          </p>
+          <p className="text-xl text-black">Daftarkan dirimu sekarang!</p>
           <button
             id="openForm"
             className="register-button mt-3 bg-teal-800 text-white px-8 py-3 rounded-lg text-xl"
@@ -25,17 +67,23 @@ function Info() {
             Daftar
           </button>
         </div>
+        )}
       </section>
 
       {/* Persyaratan Section */}
-      <section id="persyaratan" className="py-20 bg-teal-60">
+      <section id="persyaratan" className="py-20">
         <div className="container mx-auto px-6">
           <h2 className="text-3xl font-semibold mb-6">Persyaratan Pendaftaran</h2>
           <ul className="list-disc pl-6 space-y-2 text-lg text-gray-700">
-            <li>Warga Negara Indonesia</li>
-            <li>Lulusan SMA/SMK/MA atau setara</li>
-            <li>Memiliki nilai ujian nasional minimal 70</li>
-            <li>Menyiapkan dokumen pendukung seperti fotokopi ijazah dan transkrip nilai</li>
+            {loadingSyarat ? (
+              <li>Loading persyaratan...</li>
+            ) : syaratData.length > 0 ? (
+              syaratData.map((syarat, index) => (
+                <li key={index}>{syarat.syarat}</li>
+              ))
+            ) : (
+              <li>No persyaratan available.</li>
+            )}
           </ul>
         </div>
       </section>
@@ -52,22 +100,22 @@ function Info() {
               </tr>
             </thead>
             <tbody>
-              <tr className="border-b border-teal-400">
-                <td className="py-3 px-4 text-lg text-gray-700">Pendaftaran Awal</td>
-                <td className="py-3 px-4 text-lg text-gray-700">1 Januari - 15 Februari 2024</td>
-              </tr>
-              <tr className="border-b border-teal-400">
-                <td className="py-3 px-4 text-lg text-gray-700">Seleksi Administrasi</td>
-                <td className="py-3 px-4 text-lg text-gray-700">16 Februari - 20 Februari 2024</td>
-              </tr>
-              <tr className="border-b border-teal-400">
-                <td className="py-3 px-4 text-lg text-gray-700">Pengumuman Hasil Seleksi</td>
-                <td className="py-3 px-4 text-lg text-gray-700">25 Februari 2024</td>
-              </tr>
-              <tr className="border-b border-teal-400">
-                <td className="py-3 px-4 text-lg text-gray-700">Registrasi Ulang</td>
-                <td className="py-3 px-4 text-lg text-gray-700">1 Maret - 10 Maret 2024</td>
-              </tr>
+              {loadingKegiatan ? (
+                <tr>
+                  <td colSpan="2" className="text-center py-3 text-gray-500">Loading kegiatan...</td>
+                </tr>
+              ) : kegiatanData.length > 0 ? (
+                kegiatanData.slice(1).map((kegiatan, index) => (
+                  <tr key={index} className="border-b border-teal-400">
+                    <td className="py-3 px-4 text-lg text-gray-700">{kegiatan.kegiatan}</td>
+                    <td className="py-3 px-4 text-lg text-gray-700">{kegiatan.tanggal}</td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="2" className="text-center py-3 text-gray-500">No jadwal available.</td>
+                </tr>
+              )}
             </tbody>
           </table>
         </div>

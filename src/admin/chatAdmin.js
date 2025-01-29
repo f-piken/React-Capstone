@@ -1,7 +1,9 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import { useLocation } from "react-router-dom";
 import Nav from './component/nav';
 import api from '../api'; 
+import Header from './component/header';
 
 function Chat() {
   const { search } = useLocation();
@@ -10,6 +12,9 @@ function Chat() {
   const status = params.get("status");
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState('');
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  
+  const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
 
   useEffect(() => {
@@ -46,17 +51,12 @@ function Chat() {
   return (
     <div className="flex flex-col h-screen bg-teal-100 font-sans">
       {/* Header */}
-      <header className="bg-teal-200 text-teal-800 px-6 py-4 flex justify-between items-center shadow">
-        <h1 className="text-xl font-bold">Admin Panel</h1>
-        <div className="flex items-center">
-          <span className="material-icons text-3xl mr-2">account_circle</span>
-          <span>Munet</span>
-        </div>
-      </header>
+      <Header  isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen}/>
+
       {/* Container */}
       <div className="flex flex-1 overflow-hidden">
         {/* Sidebar */}
-        <Nav />
+        <Nav isSidebarOpen={isSidebarOpen} />
 
         <div className="pt-10 flex flex-col justify-between p-6 w-[1000rem]">
           <div className="bg-teal-300 chat-box flex-1 max-h-[1000px] p-5 rounded-lg overflow-y-auto">

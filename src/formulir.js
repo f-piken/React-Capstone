@@ -15,6 +15,7 @@ function Formulir() {
     nisn: '',
     no: '',
     metodePembayaran: '',
+    gambar: '',
   });
 
 const [message, setMessage] = useState(null);
@@ -25,12 +26,26 @@ const navigate = useNavigate();
     const { id, value } = e.target;
     setFormData({ ...formData, [id]: value });
   };
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setFormData({ ...formData, gambar: file });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const data = new FormData();
+
+    Object.keys(formData).forEach((key) => {
+      data.append(key, formData[key]);
+    });
+
     setLoading(true);  // Show loading popup
     try {
-        const response = await api.post('/daftar', formData);
+        const response = await api.post('/daftar', data,{
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
 
         const paymentDetails = {
           id: response.data.transaction_id,  // Misalnya, ID transaksi dikirim dari backend
@@ -52,7 +67,7 @@ const navigate = useNavigate();
         navigate('/');
         setMessage(response.data.message);
     } catch (error) {
-        setMessage('Terjadi kesalahan. Silakan coba lagi.');
+        setMessage('Data tidak valid atau sudah ada!');
     } finally {
         setLoading(false);
     }
@@ -64,7 +79,7 @@ const navigate = useNavigate();
       <div className="pt-[8rem]">
         <div className="max-w-6xl mx-auto bg-white p-6 rounded-lg shadow-lg border-2 border-teal-300">
           <h2 className="text-center text-2xl text-teal-800 font-semibold mb-6">Form Pendaftaran Mahasiswa Baru</h2>
-          {message && <p className="text-center text-teal-700 mb-4">{message}</p>}
+          {message && <p className="text-center text-teal-700 mb-4" style={{ color: 'red' }}>{message}</p>}
 
           {/* Loading Popup */}
           {loading && (
@@ -176,8 +191,20 @@ const navigate = useNavigate();
                 />
               </div>
 
+              <div className="mb-4">
+                <label htmlFor="gambar" className="block text-teal-800 font-medium mb-2">Unggah Gambar</label>
+                <input
+                  type="file"
+                  id="gambar"
+                  accept="image/*"
+                  onChange={handleImageChange}
+                  className="w-full p-3 border border-teal-300 rounded-lg"
+                  required
+                />
+              </div>
+
               {/* Metode Pembayaran */}
-              <div className="mb-4 col-span-2">
+              <div className="mb-4">
                 <label htmlFor="metodePembayaran" className="block text-teal-800 font-medium mb-2">Metode Pembayaran</label>
                 <select
                   id="metodePembayaran"
@@ -187,7 +214,8 @@ const navigate = useNavigate();
                   required
                 >
                   <option value="" disabled>Pilih metode pembayaran</option>
-                  <option value="transfer_bank">Transfer Bank</option>
+                  <option value="credit_card">Credit Card</option>
+                  <option value="bank_transfer">Transfer Bank</option>
                   <option value="gopay">Gopay</option>
                   <option value="shopeepay">ShopeePay</option>
                   <option value="qris">QRIS</option>

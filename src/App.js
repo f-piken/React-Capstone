@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import NotFound from './components/NotFound';
 import HomePage from './HomePage';
 import Formulir from './formulir';
 import Video from './video';
@@ -11,6 +12,7 @@ import Jadwal from './admin/jadwal';
 import Pendaftar from './admin/pendaftar';
 import Keuangan from './admin/keuangan';
 import Absen from './admin/absen';
+import Settings from './admin/settings';
 import ChatAdmin from './admin/chatAdmin';
 import ChatMenunggu from './admin/chatMenunggu';
 import Konfirm from './konfirmasi';
@@ -33,6 +35,7 @@ function App() {
         <Route path="/Chat" element={<Chat/>} />
         <Route path="/confirm" element={<Konfirm/>} />
         <Route path="/login" element={<Login />} />
+        <Route path="/Settings" element={<Settings />} />
         
         {role === "admin" ? (
           <>
@@ -56,7 +59,7 @@ function App() {
         )}
         
         {/* Route wildcard untuk rute yang tidak dikenali */}
-        <Route path="*" element={<Navigate to="/login" />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
   );

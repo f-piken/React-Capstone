@@ -1,155 +1,113 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import Header from "./component/header";
+import Nav from "./component/nav";
+import api from "../api";
 
 const AbsenMahasiswa = () => {
-  const [absensi, setAbsensi] = useState([]); // Data absensi
-  const [mahasiswa, setMahasiswa] = useState(null); // Data mahasiswa
-  const [loading, setLoading] = useState(true); // Status loading
-  const currentDate = new Date().toLocaleDateString(); // Tanggal saat ini
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [presensi, setPresensi] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [message, setMessage] = useState("");
 
-  // Fetch data mahasiswa dan absensi
+  // Fetch data presensi
   useEffect(() => {
     const fetchData = async () => {
-      const token = localStorage.getItem("token"); // Ambil token dari localStorage
-
-      if (!token) {
-        console.log("Token tidak ditemukan");
-        setLoading(false);
-        return;
-      }
-
       try {
-        // Ambil data mahasiswa
-        const mahasiswaResponse = await axios.get(
-          "http://localhost:8000/api/mahasiswa/me",
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        );
-        setMahasiswa(mahasiswaResponse.data);
-
-        // Ambil data absensi berdasarkan mahasiswa_id
-        const absensiResponse = await axios.get(
-          "http://localhost:8000/api/mahasiswa/absensi/me",
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          }
-        );
-        setAbsensi(absensiResponse.data);
+        const response = await api.get("/mahasiswa/presensi/me");
+        setPresensi(response.data.presensi);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error("Error fetching presensi data:", error);
       } finally {
-        setLoading(false); // Set loading ke false setelah data selesai di-fetch
+        setLoading(false);
       }
     };
 
     fetchData();
   }, []);
 
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <span className="text-xl font-semibold">Memuat data...</span>
-      </div>
-    );
-  }
+  // Handle submit presensi
+  const handleSubmitPresensi = async (presensiId) => {
+    try {
+      const response = await api.post("/mahasiswa/presensi/submit", {
+        presensi_id: presensiId,
+      });
+      setMessage(response.data.message);
+
+      // Refresh data presensi
+      const updatedPresensi = presensi.map((item) => {
+        if (item.id === presensiId) {
+          return {
+            ...item,
+            presensiDetails: [{ ...item.presensi_details[0], status: "present" }],
+            is_open: false,
+          };
+        }
+        return item;
+      });
+      setPresensi(updatedPresensi);
+    } catch (error) {
+      console.error("Error submitting presensi:", error);
+      setMessage("Gagal melakukan presensi.");
+    }
+  };
 
   return (
     <div className="flex flex-col h-screen bg-teal-100 font-sans">
-      {/* Header */}
-      <header className="bg-teal-200 text-teal-800 px-6 py-4 flex justify-between items-center shadow">
-        <h1 className="text-xl font-bold">Panel Mahasiswa</h1>
-        <div className="flex items-center">
-          <span className="material-icons text-3xl mr-2">account_circle</span>
-          <span>{mahasiswa ? mahasiswa.nama : "Nama tidak tersedia"}</span>
-        </div>
-      </header>
-
-      {/* Container */}
+      <Header isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
       <div className="flex flex-1 overflow-hidden">
-        {/* Sidebar */}
-        <aside className="w-48 bg-teal-700 text-white flex-shrink-0">
-          <nav>
-            <ul className="space-y-2 p-4">
-              <li>
-                <a
-                  href="/dashboardMahasiswa"
-                  className="block px-4 py-2 rounded hover:bg-teal-600"
-                >
-                  Dashboard
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/jadwalMahasiswa"
-                  className="block px-4 py-2 rounded hover:bg-teal-600"
-                >
-                  Jadwal
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/pembayaranMahasiswa"
-                  className="block px-4 py-2 rounded hover:bg-teal-600"
-                >
-                  Pembayaran
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/absenMahasiswa"
-                  className="block px-4 py-2 rounded hover:bg-teal-600"
-                >
-                  Presensi
-                </a>
-              </li>
-              <li>
-                <a
-                  href="/"
-                  className="block px-4 py-2 rounded hover:bg-teal-600"
-                >
-                  Logout
-                </a>
-              </li>
-            </ul>
-          </nav>
-        </aside>
-
-        {/* Main Content */}
+        <Nav isSidebarOpen={isSidebarOpen} />
         <main className="flex-1 bg-teal-50 p-6 overflow-y-auto">
-          <h2 className="text-2xl font-bold mb-4">Presensi</h2>
+          <h2 className="text-4xl font-bold mb-4">Presensi</h2>
+          {message && <div className="mb-4 text-green-600">{message}</div>}
           <div className="overflow-x-auto">
             <table className="min-w-full bg-white border border-teal-300 rounded-lg shadow">
               <thead className="bg-teal-700 text-white">
                 <tr>
-                  <th className="px-6 py-3 text-left font-medium">Mata Kuliah</th>
+                  <th className="px-6 py-3 text-left font-medium">Hari</th>
                   <th className="px-6 py-3 text-left font-medium">Waktu Mulai</th>
                   <th className="px-6 py-3 text-left font-medium">Waktu Selesai</th>
-                  <th className="px-6 py-3 text-left font-medium">Ruangan</th>
-                  <th className="px-6 py-3 text-left font-medium">Status</th>
+                  <th className="px-6 py-3 text-left font-medium">Aksi</th>
                 </tr>
               </thead>
               <tbody>
-                {absensi.length > 0 ? (
-                  absensi.map((absen) => (
-                    <tr
-                      key={absen.id}
-                      className="hover:bg-teal-100 border-t border-teal-300"
-                    >
-                      <td className="px-6 py-4">{absen.mata_kuliah}</td>
-                      <td className="px-6 py-4">{absen.waktu_mulai}</td>
-                      <td className="px-6 py-4">{absen.waktu_selesai}</td>
-                      <td className="px-6 py-4">{absen.ruang}</td>
-                      <td className="px-6 py-4">{absen.status}</td>
-                    </tr>
-                  ))
+                {presensi.length > 0 ? (
+                  presensi.map((item) => {
+                    const detail = item.presensi_details[0];
+                    return (
+                      <tr
+                        key={item.id}
+                        className="hover:bg-teal-100 border-t border-teal-300"
+                      >
+                        <td className="px-6 py-4">{item.hari}</td>
+                        <td className="px-6 py-4">{item.start_time}</td>
+                        <td className="px-6 py-4">{item.end_time}</td>
+                        <td className="px-6 py-4">
+                          {item.is_open && detail?.status === "absen" ? (
+                            <button
+                              onClick={() => handleSubmitPresensi(item.id)}
+                              className="bg-teal-500 text-white py-2 px-4 rounded-lg hover:bg-teal-600"
+                            >
+                              Submit Presensi
+                            </button>
+                          ) : (
+                            <span className="text-gray-500">
+                              {detail?.status === "present"
+                                ? "Sudah Presensi"
+                                : "Presensi Ditutup"}
+                            </span>
+                          )}
+                        </td>
+                      </tr>
+                    );
+                  })
                 ) : (
                   <tr>
                     <td
-                      colSpan="7"
+                      colSpan="4"
                       className="text-center px-6 py-4 text-gray-500"
                     >
-                      Tidak ada data absensi.
+                      Tidak ada presensi yang tersedia.
                     </td>
                   </tr>
                 )}
